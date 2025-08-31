@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="p-8">
+    <h1>API Test</h1>
+    <div id="status" class="mb-4"></div>
+    <div id="properties" class="grid grid-cols-1 gap-4 mt-4"></div>
+
+    <script>
+        async function testAPI() {
+            const statusDiv = document.getElementById('status');
+            const propertiesDiv = document.getElementById('properties');
+            
+            try {
+                statusDiv.innerHTML = '<div class="alert alert-info">Loading...</div>';
+                console.log('Current origin:', window.location.origin);
+                console.log('Fetching from: http://localhost:5295/api/properties/featured');
+                
+                const response = await fetch('http://localhost:5295/api/properties/featured');
+                console.log('Response:', response);
+                console.log('Response status:', response.status);
+                console.log('Response headers:', [...response.headers.entries()]);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('Data received:', data);
+                console.log('Number of properties:', data.length);
+                
+                statusDiv.innerHTML = `<div class="alert alert-success">Success! Got ${data.length} properties</div>`;
+                
+                if (data.length > 0) {
+                    propertiesDiv.innerHTML = data.map(property => `
+                        <div class="card bg-base-100 shadow-lg p-4">
+                            <h3 class="font-bold">${property.title}</h3>
+                            <p class="text-gray-600">${property.location}</p>
+                            <p class="text-green-600 font-semibold">$${property.pricePerNight}/night</p>
+                            <p class="text-yellow-600">Rating: ${property.rating} ⭐</p>
+                            <img src="${property.primaryImageUrl}" alt="${property.title}" class="w-full h-32 object-cover mt-2 rounded" onerror="this.src='https://via.placeholder.com/400x200?text=Image+Not+Found'">
+                            <p class="text-sm text-gray-500 mt-2">Amenities: ${property.amenities.join(', ')}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    propertiesDiv.innerHTML = '<div class="alert alert-warning">No properties found</div>';
+                }
+                
+            } catch (error) {
+                console.error('Error details:', error);
+                statusDiv.innerHTML = `<div class="alert alert-error">Error: ${error.message}</div>`;
+                
+                // Additional debugging
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    statusDiv.innerHTML += '<div class="alert alert-warning mt-2">This might be a CORS issue. Make sure the API is running and accessible.</div>';
+                }
+            }
+        }
+        
+        // Test when page loads
+        window.addEventListener('DOMContentLoaded', testAPI);
+        
+        // Add a manual test button
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.createElement('button');
+            button.textContent = 'Test Again';
+            button.className = 'btn btn-primary mt-4';
+            button.onclick = testAPI;
+            document.body.appendChild(button);
+        });
+    </script>
+</body>
+</html>

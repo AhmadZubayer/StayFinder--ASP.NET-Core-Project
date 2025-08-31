@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFinder - Find Your Perfect Stay</title>
+    <!--Daisy UI CDN-->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <!--Tailwind CSS CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-base-100">
+    <!-- Navigation -->
+    <nav class="navbar bg-base-100 border-b border-base-200 px-4 lg:px-8">
+        <div class="navbar-start">
+            <div class="dropdown lg:hidden">
+                <div tabindex="0" role="button" class="btn btn-ghost">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a>Stays</a></li>
+                    <li><a>Experiences</a></li>
+                    <li><a>Online Experiences</a></li>
+                </ul>
+            </div>
+            <a class="text-xl font-bold text-primary">
+                <i class="fas fa-home mr-2"></i>
+                StayFinder
+            </a>
+        </div>
+        
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li><a class="font-medium">Stays</a></li>
+                <li><a class="font-medium">Experiences</a></li>
+                <li><a class="font-medium">Online Experiences</a></li>
+            </ul>
+        </div>
+        
+        <div class="navbar-end">
+            <div class="flex items-center gap-2">
+                <button class="btn btn-ghost btn-sm hidden sm:flex">Become a Host</button>
+                
+                <!-- Sign In / Sign Up Buttons -->
+                <div class="flex items-center gap-2">
+                    <button class="btn btn-ghost btn-sm">Sign In</button>
+                    <button class="btn btn-primary btn-sm">Sign Up</button>
+                </div>
+                
+                <!-- Language/Globe Button -->
+                <button class="btn btn-ghost btn-circle btn-sm">
+                    <i class="fas fa-globe"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero min-h-[70vh] bg-gradient-to-br from-pink-50 to-rose-50">
+        <div class="hero-content text-center">
+            <div class="max-w-4xl">
+                <h1 class="text-5xl font-bold text-gray-800 mb-4">Find your next stay</h1>
+                <p class="text-xl text-gray-600 mb-8">Search low prices on hotels, homes and much more...</p>
+                
+                <!-- Search Form -->
+                <form class="card bg-base-100 shadow-xl p-6 search-form">
+                    <div class="flex flex-col lg:flex-row gap-4">
+                        <!-- Where -->
+                        <div class="form-control flex-1">
+                            <label class="label">
+                                <span class="label-text font-semibold">Where</span>
+                            </label>
+                            <input type="text" name="location" placeholder="Search destinations" class="input input-bordered w-full" />
+                        </div>
+                        
+                        <!-- Check-in -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-semibold">Check in</span>
+                            </label>
+                            <input type="date" name="checkin" class="input input-bordered" />
+                        </div>
+                        
+                        <!-- Check-out -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-semibold">Check out</span>
+                            </label>
+                            <input type="date" name="checkout" class="input input-bordered" />
+                        </div>
+                        
+                        <!-- Guests -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-semibold">Who</span>
+                            </label>
+                            <select name="guests" class="select select-bordered">
+                                <option value="1">1 guest</option>
+                                <option value="2">2 guests</option>
+                                <option value="3">3 guests</option>
+                                <option value="4">4+ guests</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Search Button -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text opacity-0">Search</span>
+                            </label>
+                            <button type="submit" class="btn btn-primary btn-circle lg:btn-wide">
+                                <i class="fas fa-search"></i>
+                                <span class="hidden lg:inline ml-2">Search</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Types -->
+    <section class="py-16 px-4 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8">Explore nearby</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+                <div class="flex flex-col items-center p-4 rounded-lg hover:bg-base-200 transition-colors cursor-pointer">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-red-400 to-pink-500 flex items-center justify-center mb-2">
+                        <i class="fas fa-home text-white text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">Entire homes</span>
+                </div>
+                
+                <div class="flex flex-col items-center p-4 rounded-lg hover:bg-base-200 transition-colors cursor-pointer">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center mb-2">
+                        <i class="fas fa-door-open text-white text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">Private rooms</span>
+                </div>
+                
+                <div class="flex flex-col items-center p-4 rounded-lg hover:bg-base-200 transition-colors cursor-pointer">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center mb-2">
+                        <i class="fas fa-building text-white text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">Hotels</span>
+                </div>
+                
+                <div class="flex flex-col items-center p-4 rounded-lg hover:bg-base-200 transition-colors cursor-pointer">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-purple-400 to-violet-500 flex items-center justify-center mb-2">
+                        <i class="fas fa-star text-white text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">Unique stays</span>
+                </div>
+                
+                <div class="flex flex-col items-center p-4 rounded-lg hover:bg-base-200 transition-colors cursor-pointer">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center mb-2">
+                        <i class="fas fa-mountain text-white text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">Cabins</span>
+                </div>
+                
+                <div class="flex flex-col items-center p-4 rounded-lg hover:bg-base-200 transition-colors cursor-pointer">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center mb-2">
+                        <i class="fas fa-water text-white text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">Beachfront</span>
+                </div>
+                
+                <div class="flex flex-col items-center p-4 rounded-lg hover:bg-base-200 transition-colors cursor-pointer">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center mb-2">
+                        <i class="fas fa-city text-white text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">City center</span>
+                </div>
+                
+                <div class="flex flex-col items-center p-4 rounded-lg hover:bg-base-200 transition-colors cursor-pointer">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-slate-400 to-gray-500 flex items-center justify-center mb-2">
+                        <i class="fas fa-tree text-white text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">Countryside</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section class="py-16 px-4 lg:px-8 bg-base-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8">Featured stays</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 featured-properties-grid">
+                <!-- Properties will be loaded dynamically by JavaScript -->
+            </div>
+            
+            <div class="text-center mt-8">
+                <button class="btn btn-outline btn-lg show-more-btn">Show more</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="py-16 px-4 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8">Experience something new</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl">Host your home</h3>
+                        <p class="mb-4">Earn extra income and unlock new opportunities by sharing your space.</p>
+                        <div class="card-actions">
+                            <button class="btn btn-white text-purple-600">Learn more</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-gradient-to-r from-emerald-500 to-teal-500 text-white">
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl">Host an experience</h3>
+                        <p class="mb-4">Share your passion and expertise with travelers from around the world.</p>
+                        <div class="card-actions">
+                            <button class="btn btn-white text-emerald-600">Learn more</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-base-200 text-base-content">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="link link-hover">Help Center</a></li>
+                        <li><a href="#" class="link link-hover">Safety Information</a></li>
+                        <li><a href="#" class="link link-hover">Terms & Conditions</a></li>
+                        <li><a href="#" class="link link-hover">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-primary"></i>
+                            <a href="mailto:support@stayfinder.com" class="link link-hover">support@stayfinder.com</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-primary"></i>
+                            <a href="mailto:info@stayfinder.com" class="link link-hover">info@stayfinder.com</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-phone text-primary"></i>
+                            <a href="tel:+1-800-STAYFIND" class="link link-hover">+1 (800) 782-9346</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            <span class="text-sm">24/7 Customer Support</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Follow Us</h4>
+                    <div class="flex gap-3 mb-4">
+                        <a href="#" class="btn btn-circle btn-outline btn-sm hover:btn-primary">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="btn btn-circle btn-outline btn-sm hover:btn-primary">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="btn btn-circle btn-outline btn-sm hover:btn-primary">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="btn btn-circle btn-outline btn-sm hover:btn-primary">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        <p class="mb-2">Subscribe to our newsletter for exclusive deals and updates!</p>
+                        <div class="flex gap-2">
+                            <input type="email" placeholder="Your email" class="input input-sm input-bordered flex-1" />
+                            <button class="btn btn-primary btn-sm">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex flex-wrap gap-4 text-sm">
+                    <span>© 2025 StayFinder, Inc. All rights reserved.</span>
+                    <a href="#" class="link link-hover">Privacy</a>
+                    <a href="#" class="link link-hover">Terms</a>
+                </div>
+                
+                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-globe"></i>
+                        <span>English (US)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span>$ USD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+                
+                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-globe"></i>
+                        <span>English (US)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span>$ USD</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="#" class="btn btn-ghost btn-circle btn-sm">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="btn btn-ghost btn-circle btn-sm">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="btn btn-ghost btn-circle btn-sm">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Include JavaScript -->
+    <script src="/js/homepage.js"></script>
+</body>
+</html>
