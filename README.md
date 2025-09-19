@@ -99,6 +99,9 @@ Demonstration Video: https://youtu.be/R0XObS_fyMQ
 
 ## 📂 Project Structure
 
+<img width="1182" height="396" alt="image" src="https://github.com/user-attachments/assets/939c635d-86ab-4b62-8b65-a932361fd134" />
+
+
 
 ---
 
