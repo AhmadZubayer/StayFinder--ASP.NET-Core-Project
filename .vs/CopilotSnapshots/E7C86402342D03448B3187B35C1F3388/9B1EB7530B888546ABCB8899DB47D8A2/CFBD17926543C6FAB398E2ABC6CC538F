@@ -1,0 +1,111 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using StayFinder.Models;
+
+namespace StayFinder.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PropertiesController : ControllerBase
+    {
+        private readonly ILogger<PropertiesController> _logger;
+
+        public PropertiesController(ILogger<PropertiesController> logger)
+        {
+            _logger = logger;
+        }
+
+        [HttpGet]
+        public IEnumerable<Property> GetProperties()
+        {
+            // Sample data - in a real application, this would come from a database
+            return new List<Property>
+            {
+                new Property
+                {
+                    Id = 1,
+                    Title = "Apartment in Bashundhara",
+                    City = "Dhaka",
+                    Features = "Free Breakfast",
+                    Price = 50.55m,
+                    ImageUrl = "./files/308910849_608205397675342_3645193095878894441_n-720x785.jpg",
+                    PropertyType = "Apartments"
+                },
+                new Property
+                {
+                    Id = 2,
+                    Title = "Modern Villa in Gulshan",
+                    City = "Dhaka",
+                    Features = "Swimming Pool, Garden",
+                    Price = 120.00m,
+                    ImageUrl = "./files/308910849_608205397675342_3645193095878894441_n-720x785.jpg",
+                    PropertyType = "Villas"
+                },
+                new Property
+                {
+                    Id = 3,
+                    Title = "Cozy Room in Dhanmondi",
+                    City = "Dhaka",
+                    Features = "Free WiFi",
+                    Price = 25.99m,
+                    ImageUrl = "./files/308910849_608205397675342_3645193095878894441_n-720x785.jpg",
+                    PropertyType = "Rooms"
+                },
+                new Property
+                {
+                    Id = 4,
+                    Title = "Luxury Apartment in Banani",
+                    City = "Dhaka",
+                    Features = "Gym, Parking",
+                    Price = 85.50m,
+                    ImageUrl = "./files/308910849_608205397675342_3645193095878894441_n-720x785.jpg",
+                    PropertyType = "Apartments"
+                },
+                new Property
+                {
+                    Id = 5,
+                    Title = "Beach Villa in Cox's Bazar",
+                    City = "Cox's Bazar",
+                    Features = "Ocean View, Private Beach",
+                    Price = 200.00m,
+                    ImageUrl = "./files/308910849_608205397675342_3645193095878894441_n-720x785.jpg",
+                    PropertyType = "Villas"
+                },
+                new Property
+                {
+                    Id = 6,
+                    Title = "Student Room in Uttara",
+                    City = "Dhaka",
+                    Features = "Study Desk, Free Internet",
+                    Price = 30.00m,
+                    ImageUrl = "./files/308910849_608205397675342_3645193095878894441_n-720x785.jpg",
+                    PropertyType = "Rooms"
+                }
+            };
+        }
+
+        [HttpGet("filter")]
+        public IEnumerable<Property> GetFilteredProperties([FromQuery] string? type = null, [FromQuery] string? sortBy = null)
+        {
+            var properties = GetProperties().AsEnumerable();
+
+            // Filter by type
+            if (!string.IsNullOrEmpty(type) && type.ToLower() != "all")
+            {
+                properties = properties.Where(p => p.PropertyType.ToLower() == type.ToLower());
+            }
+
+            // Sort by price
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                properties = sortBy.ToLower() switch
+                {
+                    "low-to-high" => properties.OrderBy(p => p.Price),
+                    "high-to-low" => properties.OrderByDescending(p => p.Price),
+                    _ => properties
+                };
+            }
+
+            return properties;
+        }
+    }
+}

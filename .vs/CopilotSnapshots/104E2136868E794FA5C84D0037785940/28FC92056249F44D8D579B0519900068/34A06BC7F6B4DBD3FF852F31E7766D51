@@ -1,0 +1,1162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFinder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <!-- daisy ui cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <!-- tailwind cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Dark Mode Styles -->
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5fff6;
+            --bg-card: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-accent: #04aa6d;
+            --text-accent-hover: #038a5a;
+            --border-color: #e5e7eb;
+            --input-bg: #ffffff;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f2e;
+            --bg-card: #1a1f2e;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-accent: #10b981;
+            --text-accent-hover: #059669;
+            --border-color: #374151;
+            --input-bg: #1f2937;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .bg-custom-primary { background-color: var(--bg-primary); }
+        .bg-custom-secondary { background-color: var(--bg-secondary); }
+        .bg-custom-card { background-color: var(--bg-card); }
+        .text-custom-primary { color: var(--text-primary); }
+        .text-custom-secondary { color: var(--text-secondary); }
+        .text-custom-accent { color: var(--text-accent); }
+        .border-custom { border-color: var(--border-color); }
+        .bg-custom-input { background-color: var(--input-bg); }
+        .shadow-custom { box-shadow: var(--shadow); }
+
+        /* Dark mode specific overrides */
+        [data-theme="dark"] .logo {
+            color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .logo:hover {
+            color: var(--text-accent-hover) !important;
+        }
+
+        [data-theme="dark"] .btn.bg-\[#04aa6d\] {
+            background-color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .btn.bg-\[#04aa6d\]:hover {
+            background-color: var(--text-accent-hover) !important;
+        }
+
+        [data-theme="dark"] .text-\[#04aa6d\] {
+            color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .accent-\[#04aa6d\] {
+            accent-color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .bg-\[#f5fff6\] {
+            background-color: var(--bg-secondary) !important;
+        }
+
+        [data-theme="dark"] .bg-white {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.text-gray-700 {
+            background-color: var(--bg-card) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .bg-white.text-gray-700:hover {
+            background-color: var(--bg-secondary) !important;
+        }
+
+        [data-theme="dark"] .text-gray-800 {
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .text-gray-600 {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .text-gray-700 {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .text-gray-500 {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .border-gray-200 {
+            border-color: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .border-gray-300 {
+            border-color: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .bg-gray-50 {
+            background-color: var(--bg-secondary) !important;
+        }
+
+        [data-theme="dark"] .bg-gray-100 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-base-100 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .input-bordered {
+            background-color: var(--input-bg) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .input-bordered::placeholder {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .btn-outline {
+            border-color: var(--border-color) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .btn-outline:hover {
+            background-color: var(--bg-card) !important;
+            border-color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .dropdown-content {
+            background-color: var(--bg-card) !important;
+            border-color: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .dropdown-content a {
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .dropdown-content a:hover {
+            background-color: var(--bg-secondary) !important;
+        }
+
+        [data-theme="dark"] .modal-box {
+            background-color: var(--bg-card) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+        }
+
+        [data-theme="dark"] .tabs .tab {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .tabs .tab[aria-pressed="true"] {
+            color: var(--text-accent) !important;
+            border-bottom-color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .checkbox {
+            accent-color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .range {
+            accent-color: var(--text-accent) !important;
+        }
+
+        /* Additional dark mode overrides for white elements */
+        [data-theme="dark"] .bg-white.rounded-lg {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-full {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.shadow-lg {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.shadow-sm {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.border {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.p-6 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.p-8 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.flex {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.items-center {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.justify-center {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.items-start {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.justify-start {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.w-full {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.max-w-md {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.max-w-2xl {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.max-w-5xl {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.mx-auto {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.px-8 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.py-8 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.pt-16 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.shadow-lg {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.shadow-sm {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.border {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.p-6 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.p-8 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.shadow-lg.p-8 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.shadow-sm.border {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.shadow-sm.border.p-6 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-full.shadow-lg {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-full.shadow-lg.p-1 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-full.shadow-lg.p-1.flex {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-full.shadow-lg.p-1.flex.items-center {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-full.shadow-lg.p-1.flex.items-center.gap-1 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-full.shadow-lg.p-1.flex.items-center.gap-1.max-w-5xl {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-full.shadow-lg.p-1.flex.items-center.gap-1.max-w-5xl.mx-auto {
+            background-color: var(--bg-card) !important;
+        }
+
+        /* Universal dark mode override for any remaining white backgrounds */
+        [data-theme="dark"] *[class*="bg-white"] {
+            background-color: var(--bg-card) !important;
+        }
+
+        /* Specific overrides for input elements with bg-white */
+        [data-theme="dark"] input.bg-white {
+            background-color: var(--input-bg) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] input.bg-white.text-sm {
+            background-color: var(--input-bg) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] input.w-20.bg-white {
+            background-color: var(--input-bg) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] input.w-12.bg-white {
+            background-color: var(--input-bg) !important;
+            color: var(--text-primary) !important;
+        }
+
+        /* Override for property cards */
+        [data-theme="dark"] .property-card.bg-white {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .property-card.bg-white.rounded-lg {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .property-card.bg-white.rounded-lg.shadow-lg {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .property-card.bg-white.rounded-lg.shadow-lg.overflow-hidden {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .property-card.bg-white.rounded-lg.shadow-lg.overflow-hidden.max-w-xs {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .property-card.bg-white.rounded-lg.shadow-lg.overflow-hidden.max-w-xs.w-full {
+            background-color: var(--bg-card) !important;
+        }
+
+        /* Additional aggressive overrides for any remaining white backgrounds */
+        [data-theme="dark"] div[class*="bg-white"],
+        [data-theme="dark"] section[class*="bg-white"],
+        [data-theme="dark"] main[class*="bg-white"],
+        [data-theme="dark"] article[class*="bg-white"],
+        [data-theme="dark"] aside[class*="bg-white"],
+        [data-theme="dark"] nav[class*="bg-white"],
+        [data-theme="dark"] header[class*="bg-white"],
+        [data-theme="dark"] footer[class*="bg-white"] {
+            background-color: var(--bg-card) !important;
+        }
+
+        /* Override for any element with white background */
+        [data-theme="dark"] [style*="background-color: white"],
+        [data-theme="dark"] [style*="background-color: #fff"],
+        [data-theme="dark"] [style*="background-color: #ffffff"] {
+            background-color: var(--bg-card) !important;
+        }
+
+        /* Force override for any remaining white backgrounds */
+        [data-theme="dark"] * {
+            background-color: inherit !important;
+        }
+
+        [data-theme="dark"] *[class*="bg-white"] {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white,
+        [data-theme="dark"] .bg-white * {
+            background-color: var(--bg-card) !important;
+        }
+
+        /* Specific overrides for common white background patterns */
+        [data-theme="dark"] .bg-white.rounded-lg.shadow-lg.overflow-hidden.max-w-xs.w-full,
+        [data-theme="dark"] .bg-white.rounded-lg.shadow-lg.overflow-hidden.max-w-xs.w-full * {
+            background-color: var(--bg-card) !important;
+        }
+
+        /* Smooth transitions for theme switching */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
+
+</head>
+
+<body class="font-['Roboto'] w-full">
+    <header>
+        <nav class="flex items-center justify-between py-4 mx-6">
+            <a href="home.html" class="logo text-[#04aa6d] font-bold text-[38px] flex-shrink-0 hover:text-[#038a5a] transition-colors cursor-pointer">
+                StayFinder
+            </a>
+
+            <!-- Middle: Search Bar -->
+            <div id="search-bar" class="flex-1 max-w-2xl mx-8">
+                <label class="input input-bordered flex items-center gap-2 w-full">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                            stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input type="search" class="grow" placeholder="Search destinations, properties..." />
+                </label>
+            </div>
+
+            <div class="display-mode">
+                <label class="flex cursor-pointer gap-2 items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="sun-icon">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+                    </svg>
+                    <input type="checkbox" id="theme-toggle" class="toggle toggle-primary" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="moon-icon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </label>
+            </div>
+            <!-- Right: Navigation Buttons -->
+            <div class="nav-btns flex gap-4 flex-shrink-0">
+                <button class="btn btn rounded-lg">Become a Host</button>
+                <a href="register.html" class="btn btn rounded-lg">Sign Up</a>
+                <button class="btn btn bg-[#04aa6d] text-white rounded-lg" onclick="document.getElementById('signin-modal').showModal()">Sign In</button>
+                <button class="text-sm p-2 bg-transparent border-none hover:text-[#04aa6d]">Need Help ?</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Airbnb-style Search Section -->
+    <section class="py-6 bg-gray-50">
+        <div class="mx-6">
+            <div class="bg-white rounded-full shadow-lg p-1 flex items-center gap-1 max-w-5xl mx-auto">
+
+                <!-- Where -->
+                <div class="flex-1 px-5 py-3 border-r border-gray-300">
+                    <label class="block text-xs font-semibold text-gray-800 mb-1">Where</label>
+                    <input type="text" placeholder="Search destinations"
+                        class="w-full text-sm text-gray-600 bg-transparent border-none outline-none placeholder-gray-400">
+                </div>
+
+                <!-- Check in -->
+                <div class="flex-1 px-5 py-3 border-r border-gray-300">
+                    <label class="block text-xs font-semibold text-gray-800 mb-1">Check in</label>
+                    <input type="date" class="w-full text-sm text-gray-600 bg-transparent border-none outline-none">
+                </div>
+
+                <!-- Check out -->
+                <div class="flex-1 px-5 py-3 border-r border-gray-300">
+                    <label class="block text-xs font-semibold text-gray-800 mb-1">Check out</label>
+                    <input type="date" class="w-full text-sm text-gray-600 bg-transparent border-none outline-none">
+                </div>
+
+                <!-- Who (Guests) -->
+                <div class="flex-1 px-5 py-3">
+                    <label class="block text-xs font-semibold text-gray-800 mb-1">Who</label>
+                    <div class="flex items-center gap-3">
+                        <button
+                            class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:border-gray-400"
+                            onclick="decrementGuests()">-</button>
+                        <span class="text-sm text-gray-600 min-w-[60px] text-center" id="guestCount">2 adults</span>
+                        <button
+                            class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:border-gray-400"
+                            onclick="incrementGuests()">+</button>
+                    </div>
+                </div>
+
+                <!-- Search Button -->
+                <div class="pl-4 pr-3">
+                    <button
+                        class="bg-[#04aa6d] text-white px-6 py-3 rounded-full hover:bg-[#038a5a] transition-colors font-medium text-sm">
+                        Find Your Place
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <script>
+        let guestCount = 2;
+
+        function incrementGuests() {
+            guestCount++;
+            updateGuestDisplay();
+        }
+
+        function decrementGuests() {
+            if (guestCount > 1) {
+                guestCount--;
+                updateGuestDisplay();
+            }
+        }
+
+        function updateGuestDisplay() {
+            const display = document.getElementById('guestCount');
+            display.textContent = guestCount === 1 ? '1 adult' : `${guestCount} adults`;
+        }
+    </script>
+
+    <main class="bg-[#f5fff6]">
+        <!-- Sort Tabs Section -->
+        <section class="sort flex justify-between items-center mx-60">
+            <!-- name of each tab group should be unique -->
+            <div class="tabs tabs-box">
+                <input type="radio" name="my_tabs_1" class="tab" aria-label="All" checked="checked" />
+                <input type="radio" name="my_tabs_1" class="tab" aria-label="Apartments" />
+                <input type="radio" name="my_tabs_1" class="tab" aria-label="Villas" />
+                <input type="radio" name="my_tabs_1" class="tab" aria-label="Rooms" />
+            </div>
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-outline btn-sm">
+                    Sort by Price
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                    <li><a onclick="sortByPrice('low-to-high')">Price: Low to High</a></li>
+                    <li><a onclick="sortByPrice('high-to-low')">Price: High to Low</a></li>
+                </ul>
+            </div>
+            </div>
+        </section>
+
+        <section class="property-card-container py-8">
+            <div class="flex gap-8 mx-6">
+                <!-- Sidebar Filter Box -->
+                <aside class="w-full max-w-xs bg-[#f5fff6] rounded-xl shadow-lg p-6 h-fit sticky top-8 self-start border border-[#04aa6d]/20">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-lg font-bold text-[#04aa6d]">Filter By</span>
+                        <button class="text-sm text-[#04aa6d] font-semibold hover:underline" onclick="resetFilters()">Reset</button>
+                    </div>
+                    <!-- Price Range -->
+                    <div class="mb-6">
+                        <label class="block font-semibold text-gray-700 mb-2">Price</label>
+                        <div class="flex items-center gap-2 mb-2">
+                            <input id="minPrice" type="number" min="0" value="0" class="w-20 px-2 py-1 rounded border border-gray-200 bg-white text-sm" />
+                            <span class="text-gray-500">-</span>
+                            <input id="maxPrice" type="number" min="0" value="1000" class="w-20 px-2 py-1 rounded border border-gray-200 bg-white text-sm" />
+                        </div>
+                        <input id="priceRange" type="range" min="0" max="1000" value="1000" class="w-full accent-[#04aa6d]" oninput="updatePriceInput(this.value)" />
+                    </div>
+                    <!-- Amenities -->
+                    <div class="mb-6">
+                        <label class="block font-semibold text-gray-700 mb-2">Amenities</label>
+                        <div class="flex flex-col gap-2">
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" class="checkbox checkbox-sm accent-[#04aa6d]" id="freeBreakfast" />
+                                <span class="text-gray-700">Free Breakfast</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" class="checkbox checkbox-sm accent-[#04aa6d]" id="freeWifi" />
+                                <span class="text-gray-700">Free WiFi</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" class="checkbox checkbox-sm accent-[#04aa6d]" id="airConditioning" />
+                                <span class="text-gray-700">Air Conditioning</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" class="checkbox checkbox-sm accent-[#04aa6d]" id="parking" />
+                                <span class="text-gray-700">Parking</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" class="checkbox checkbox-sm accent-[#04aa6d]" id="swimmingPool" />
+                                <span class="text-gray-700">Swimming Pool</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" class="checkbox checkbox-sm accent-[#04aa6d]" id="washingMachine" />
+                                <span class="text-gray-700">Washing Machine</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Number of Rooms -->
+                    <div class="mb-6">
+                        <label class="block font-semibold text-gray-700 mb-2">Number of Rooms</label>
+                        <div class="flex items-center gap-2">
+                            <input id="minRooms" type="number" min="1" value="1" class="w-16 px-2 py-1 rounded border border-gray-200 bg-white text-sm" />
+                            <span class="text-gray-500">to</span>
+                            <input id="maxRooms" type="number" min="1" value="5" class="w-16 px-2 py-1 rounded border border-gray-200 bg-white text-sm" />
+                        </div>
+                    </div>
+                    <!-- Rating -->
+                    <div class="mb-6">
+                        <label class="block font-semibold text-gray-700 mb-2">Rating</label>
+                        <div class="flex items-center gap-2">
+                            <input id="minRating" type="number" min="1" max="5" value="1" class="w-12 px-2 py-1 rounded border border-gray-200 bg-white text-sm" />
+                            <span class="text-gray-500">to</span>
+                            <input id="maxRating" type="number" min="1" max="5" value="5" class="w-12 px-2 py-1 rounded border border-gray-200 bg-white text-sm" />
+                        </div>
+                        <input id="ratingRange" type="range" min="1" max="5" value="5" step="0.1" class="w-full accent-[#04aa6d] mt-2" oninput="updateRatingInput(this.value)" />
+                    </div>
+                    <!-- Apply Filters Button -->
+                    <button class="w-full bg-[#04aa6d] text-white py-2 rounded-lg font-semibold hover:bg-[#038a5a] transition-colors" onclick="applyFilters()">Apply Filters</button>
+                </aside>
+                <div class="flex-1">
+                    <p class="text-[28px] font-medium mt-4 text-center mb-8">Popular Properties Nearby</p>
+                    <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Property Card 1 -->
+                <div class="property-card bg-white rounded-lg shadow-lg overflow-hidden max-w-xs w-full" 
+                     data-city="dhaka" 
+                     data-title="apartment in bashundhara" 
+                     data-features="free breakfast"
+                     data-full-title="Apartment in Bashundhara"
+                     data-full-city="Dhaka, Bangladesh"
+                     data-price="$50.55"
+                     data-rating="4.9"
+                     data-reviews="124"
+                     data-type="Apartment"
+                     data-image="./files/308910849_608205397675342_3645193095878894441_n-720x785.jpg"
+                     data-amenities="Free Breakfast,WiFi Available,Air Conditioning,24/7 Security"
+                     data-description="Modern apartment in the heart of Bashundhara with premium amenities and excellent connectivity.">
+                    <img src="./files/308910849_608205397675342_3645193095878894441_n-720x785.jpg" 
+                         alt="Apartment in Bashundhara" 
+                         class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <p class="property-title text-base font-semibold text-gray-800 mb-1">Apartment in Bashundhara</p>
+                        <p class="property-city text-gray-600 mb-1 text-sm">Dhaka</p>
+                        <p class="property-features text-[#04aa6d] mb-3 text-sm">Free Breakfast</p>
+                        <div class="flex justify-between items-center">
+                            <p class="property-price text-xl font-bold text-gray-800">$50.55<span class="text-xs font-normal">/Day</span></p>
+                            <button class="view-details-btn btn btn-sm bg-[#04aa6d] text-white hover:bg-[#038a5a] border-none">View Details</button>
+                        </div>
+                        <p class="property-rating text-gray-500 mt-2 text-sm">4.9 ⭐</p>
+                    </div>
+                </div>
+
+                <!-- Property Card 2 -->
+                <div class="property-card bg-white rounded-lg shadow-lg overflow-hidden max-w-xs w-full" 
+                     data-city="cox's bazar" 
+                     data-title="beachfront villa" 
+                     data-features="sea view wifi"
+                     data-full-title="Beachfront Villa"
+                     data-full-city="Cox's Bazar, Bangladesh"
+                     data-price="$125.00"
+                     data-rating="4.8"
+                     data-reviews="89"
+                     data-type="Villa"
+                     data-image="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                     data-amenities="Sea View,WiFi Available,Private Beach Access,BBQ Facilities"
+                     data-description="Stunning beachfront villa with panoramic sea views and direct beach access. Perfect for a relaxing getaway.">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Beachfront Villa" 
+                         class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <p class="property-title text-base font-semibold text-gray-800 mb-1">Beachfront Villa</p>
+                        <p class="property-city text-gray-600 mb-1 text-sm">Cox's Bazar</p>
+                        <p class="property-features text-[#04aa6d] mb-3 text-sm">Sea View • WiFi</p>
+                        <div class="flex justify-between items-center">
+                            <p class="property-price text-xl font-bold text-gray-800">$120.00<span class="text-xs font-normal">/Day</span></p>
+                            <button class="view-details-btn btn btn-sm bg-[#04aa6d] text-white hover:bg-[#038a5a] border-none">View Details</button>
+                        </div>
+                        <p class="property-rating text-gray-500 mt-2 text-sm">4.8 ⭐</p>
+                    </div>
+                </div>
+
+                <!-- Property Card 3 -->
+                <div class="property-card bg-white rounded-lg shadow-lg overflow-hidden max-w-xs w-full" 
+                     data-city="sylhet" 
+                     data-title="mountain retreat" 
+                     data-features="mountain view hot tub"
+                     data-full-title="Mountain Retreat"
+                     data-full-city="Sylhet, Bangladesh"
+                     data-price="$85.00"
+                     data-rating="4.7"
+                     data-reviews="67"
+                     data-type="Cottage"
+                     data-image="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80"
+                     data-amenities="Mountain View,Hot Tub,Fireplace,Hiking Trails"
+                     data-description="Serene mountain retreat nestled in the hills of Sylhet with breathtaking valley views and peaceful surroundings.">
+                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80" 
+                         alt="Mountain Retreat" 
+                         class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <p class="property-title text-base font-semibold text-gray-800 mb-1">Mountain Retreat</p>
+                        <p class="property-city text-gray-600 mb-1 text-sm">Sylhet</p>
+                        <p class="property-features text-[#04aa6d] mb-3 text-sm">Mountain View • Hot Tub</p>
+                        <div class="flex justify-between items-center">
+                            <p class="property-price text-xl font-bold text-gray-800">$85.00<span class="text-xs font-normal">/Day</span></p>
+                            <button class="view-details-btn btn btn-sm bg-[#04aa6d] text-white hover:bg-[#038a5a] border-none">View Details</button>
+                        </div>
+                        <p class="property-rating text-gray-500 mt-2 text-sm">4.7 ⭐</p>
+                    </div>
+                </div>
+
+                <!-- Property Card 4 -->
+                <div class="property-card bg-white rounded-lg shadow-lg overflow-hidden max-w-xs w-full" 
+                     data-city="chittagong" 
+                     data-title="modern condo" 
+                     data-features="pool gym"
+                     data-full-title="Modern Condo"
+                     data-full-city="Chittagong, Bangladesh"
+                     data-price="$95.00"
+                     data-rating="4.6"
+                     data-reviews="73"
+                     data-type="Condominium"
+                     data-image="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                     data-amenities="Swimming Pool,Gym Access,Parking,Security"
+                     data-description="Contemporary condominium in the heart of Chittagong with premium facilities and city views.">
+                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Modern Condo" 
+                         class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <p class="property-title text-base font-semibold text-gray-800 mb-1">Modern Condo</p>
+                        <p class="property-city text-gray-600 mb-1 text-sm">Chittagong</p>
+                        <p class="property-features text-[#04aa6d] mb-3 text-sm">Pool • Gym</p>
+                        <div class="flex justify-between items-center">
+                            <p class="property-price text-xl font-bold text-gray-800">$75.00<span class="text-xs font-normal">/Day</span></p>
+                            <button class="view-details-btn btn btn-sm bg-[#04aa6d] text-white hover:bg-[#038a5a] border-none">View Details</button>
+                        </div>
+                        <p class="property-rating text-gray-500 mt-2 text-sm">4.6 ⭐</p>
+                    </div>
+                </div>
+
+                <!-- Property Card 5 -->
+                <div class="property-card bg-white rounded-lg shadow-lg overflow-hidden max-w-xs w-full" 
+                     data-city="dhaka" 
+                     data-title="luxury penthouse" 
+                     data-features="rooftop terrace city view"
+                     data-full-title="Luxury Penthouse"
+                     data-full-city="Dhaka, Bangladesh"
+                     data-price="$200.00"
+                     data-rating="4.9"
+                     data-reviews="156"
+                     data-type="Penthouse"
+                     data-image="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                     data-amenities="Rooftop Terrace,City View,Premium Amenities,Concierge Service"
+                     data-description="Elegant penthouse in the heart of Dhaka with stunning city views and luxury amenities.">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Luxury Penthouse" 
+                         class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <p class="property-title text-base font-semibold text-gray-800 mb-1">Luxury Penthouse</p>
+                        <p class="property-city text-gray-600 mb-1 text-sm">Dhaka</p>
+                        <p class="property-features text-[#04aa6d] mb-3 text-sm">Rooftop Terrace • City View</p>
+                        <div class="flex justify-between items-center">
+                            <p class="property-price text-xl font-bold text-gray-800">$200.00<span class="text-xs font-normal">/Day</span></p>
+                            <button class="view-details-btn btn btn-sm bg-[#04aa6d] text-white hover:bg-[#038a5a] border-none">View Details</button>
+                        </div>
+                        <p class="property-rating text-gray-500 mt-2 text-sm">4.9 ⭐</p>
+                    </div>
+                </div>
+
+                <!-- Property Card 6 -->
+                <div class="property-card bg-white rounded-lg shadow-lg overflow-hidden max-w-xs w-full" 
+                     data-city="rajshahi" 
+                     data-title="cozy cottage" 
+                     data-features="garden fireplace"
+                     data-full-title="Cozy Cottage"
+                     data-full-city="Rajshahi, Bangladesh"
+                     data-price="$60.00"
+                     data-rating="4.5"
+                     data-reviews="42"
+                     data-type="Cottage"
+                     data-image="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                     data-amenities="Garden,Fireplace,Traditional Decor,Peaceful Environment"
+                     data-description="Charming cottage in Rajshahi with beautiful gardens and traditional architecture.">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Cozy Cottage" 
+                         class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <p class="property-title text-base font-semibold text-gray-800 mb-1">Cozy Cottage</p>
+                        <p class="property-city text-gray-600 mb-1 text-sm">Rajshahi</p>
+                        <p class="property-features text-[#04aa6d] mb-3 text-sm">Garden • Fireplace</p>
+                        <div class="flex justify-between items-center">
+                            <p class="property-price text-xl font-bold text-gray-800">$45.00<span class="text-xs font-normal">/Day</span></p>
+                            <button class="view-details-btn btn btn-sm bg-[#04aa6d] text-white hover:bg-[#038a5a] border-none">View Details</button>
+                        </div>
+                        <p class="property-rating text-gray-500 mt-2 text-sm">4.5 ⭐</p>
+                    </div>
+                </div>
+
+                <!-- Property Card 7 -->
+                <div class="property-card bg-white rounded-lg shadow-lg overflow-hidden max-w-xs w-full" 
+                     data-city="khulna" 
+                     data-title="riverside bungalow" 
+                     data-features="river view boat access"
+                     data-full-title="Riverside Bungalow"
+                     data-full-city="Khulna, Bangladesh"
+                     data-price="$70.00"
+                     data-rating="4.4"
+                     data-reviews="38"
+                     data-type="Bungalow"
+                     data-image="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                     data-amenities="River View,Boat Access,Fishing Equipment,Outdoor Seating"
+                     data-description="Peaceful riverside bungalow in Khulna with direct water access and beautiful river views.">
+                    <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Riverside Bungalow" 
+                         class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <p class="property-title text-base font-semibold text-gray-800 mb-1">Riverside Bungalow</p>
+                        <p class="property-city text-gray-600 mb-1 text-sm">Khulna</p>
+                        <p class="property-features text-[#04aa6d] mb-3 text-sm">River View • Boat Access</p>
+                        <div class="flex justify-between items-center">
+                            <p class="property-price text-xl font-bold text-gray-800">$65.00<span class="text-xs font-normal">/Day</span></p>
+                            <button class="view-details-btn btn btn-sm bg-[#04aa6d] text-white hover:bg-[#038a5a] border-none">View Details</button>
+                        </div>
+                        <p class="property-rating text-gray-500 mt-2 text-sm">4.4 ⭐</p>
+                    </div>
+                </div>
+
+                <!-- Property Card 8 -->
+                <div class="property-card bg-white rounded-lg shadow-lg overflow-hidden max-w-xs w-full" 
+                     data-city="barisal" 
+                     data-title="traditional house" 
+                     data-features="cultural experience local cuisine"
+                     data-full-title="Traditional House"
+                     data-full-city="Barisal, Bangladesh"
+                     data-price="$35.00"
+                     data-rating="4.3"
+                     data-reviews="26"
+                     data-type="Traditional House"
+                     data-image="https://images.unsplash.com/photo-1566908829077-2bd3cb7e55a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                     data-amenities="Cultural Experience,Local Cuisine,Traditional Architecture,Home Cooking"
+                     data-description="Authentic traditional house in Barisal offering cultural immersion and home-cooked local meals.">
+                    <img src="https://images.unsplash.com/photo-1566908829077-2bd3cb7e55a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Traditional House" 
+                         class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <p class="property-title text-base font-semibold text-gray-800 mb-1">Traditional House</p>
+                        <p class="property-city text-gray-600 mb-1 text-sm">Barisal</p>
+                        <p class="property-features text-[#04aa6d] mb-3 text-sm">Cultural Experience • Local Cuisine</p>
+                        <div class="flex justify-between items-center">
+                            <p class="property-price text-xl font-bold text-gray-800">$35.00<span class="text-xs font-normal">/Day</span></p>
+                            <button class="view-details-btn btn btn-sm bg-[#04aa6d] text-white hover:bg-[#038a5a] border-none">View Details</button>
+                        </div>
+                        <p class="property-rating text-gray-500 mt-2 text-sm">4.3 ⭐</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Property Details Modal -->
+    <dialog id="property-modal" class="modal">
+        <div class="modal-box w-11/12 max-w-2xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            
+            <!-- Modal Content -->
+            <div class="py-4">
+                <img src="./files/308910849_608205397675342_3645193095878894441_n-720x785.jpg" 
+                     alt="Apartment in Bashundhara" 
+                     class="w-full h-64 object-cover rounded-lg mb-4">
+                
+                <h3 class="font-bold text-2xl mb-2">Apartment in Bashundhara</h3>
+                <p class="text-gray-600 mb-2 flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                    </svg>
+                    Dhaka, Bangladesh
+                </p>
+                
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <h4 class="font-semibold text-lg mb-2">Features</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Free Breakfast</li>
+                            <li>• WiFi Available</li>
+                            <li>• Air Conditioning</li>
+                            <li>• 24/7 Security</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg mb-2">Details</h4>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p>Rating: ⭐ 4.9 (124 reviews)</p>
+                            <p>Available: Sept 10 - Dec 31</p>
+                            <p>Property Type: Apartment</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-3xl font-bold text-[#04aa6d]">$50.55</span>
+                            <span class="text-gray-600">/day</span>
+                        </div>
+                        <div class="space-x-2">
+                            <form method="dialog" class="inline">
+                                <button class="btn btn-outline">Close</button>
+                            </form>
+                            <button class="btn bg-[#04aa6d] text-white hover:bg-[#038a5a]">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Sign In Modal -->
+    <dialog id="signin-modal" class="modal">
+        <div class="modal-box w-96 max-w-md">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            
+            <!-- Modal Content -->
+            <div class="py-4">
+                <div class="text-center mb-6">
+                    <h3 class="font-bold text-2xl text-gray-800 mb-2">Welcome Back!</h3>
+                    <p class="text-gray-600">Sign in to your StayFinder account</p>
+                </div>
+
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input type="email" class="input input-bordered w-full" placeholder="Enter your email" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" class="input input-bordered w-full" placeholder="Enter your password" required>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="checkbox checkbox-sm mr-2">
+                            <span class="text-sm text-gray-600">Remember me</span>
+                        </label>
+                        <a href="#" class="text-sm text-[#04aa6d] hover:underline">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn bg-[#04aa6d] text-white w-full hover:bg-[#038a5a] border-none">
+                        Sign In
+                    </button>
+                    
+                    <!-- OR Divider -->
+                    <div class="flex items-center my-4">
+                        <div class="flex-1 border-t border-gray-300"></div>
+                        <p class="mx-4 text-gray-500 text-sm">OR</p>
+                        <div class="flex-1 border-t border-gray-300"></div>
+                    </div>
+                    
+                    <!-- Google Sign In Button -->
+                    <button type="button" class="btn bg-white text-gray-700 w-full border border-gray-300 hover:bg-gray-50">
+                        <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <g>
+                                <path d="m0 0H512V512H0" fill="#fff"></path>
+                                <path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path>
+                                <path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path>
+                                <path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path>
+                                <path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path>
+                            </g>
+                        </svg>
+                        Sign in with Google
+                    </button>
+                </form>
+                
+                <div class="text-center mt-4">
+                    <p class="text-sm text-gray-600">
+                        Don't have an account? 
+                        <a href="register.html" class="text-[#04aa6d] hover:underline font-medium">Sign up</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    
+    <script>
+        // Sidebar filter logic (basic UI sync, no filtering logic implemented)
+        function updatePriceInput(val) {
+            document.getElementById('maxPrice').value = val;
+        }
+        function updateRatingInput(val) {
+            document.getElementById('maxRating').value = val;
+        }
+        function resetFilters() {
+            document.getElementById('minPrice').value = 0;
+            document.getElementById('maxPrice').value = 1000;
+            document.getElementById('priceRange').value = 1000;
+            document.getElementById('freeBreakfast').checked = false;
+            document.getElementById('freeWifi').checked = false;
+            document.getElementById('freeParking').checked = false;
+            document.getElementById('minRating').value = 1;
+            document.getElementById('maxRating').value = 5;
+            document.getElementById('ratingRange').value = 5;
+        }
+        function applyFilters() {
+            // Placeholder for filter logic
+            alert('Filters applied! (Demo only)');
+        }
+    </script>
+    <script src="home.js"></script>
+    <script src="login.js"></script>
+    <script src="forgot-password.js"></script>
+    <script src="search.js"></script>
+    <script src="property-modal.js"></script>
+
+    <!-- Dark Mode Toggle Script -->
+    <script>
+        // Dark mode functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const sunIcon = document.querySelector('.sun-icon');
+        const moonIcon = document.querySelector('.moon-icon');
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        // Apply the saved theme
+        if (currentTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
+            sunIcon.style.opacity = '0.5';
+            moonIcon.style.opacity = '1';
+        } else {
+            body.setAttribute('data-theme', 'light');
+            themeToggle.checked = false;
+            sunIcon.style.opacity = '1';
+            moonIcon.style.opacity = '0.5';
+        }
+
+        // Theme toggle event listener
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                // Switch to dark mode
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                sunIcon.style.opacity = '0.5';
+                moonIcon.style.opacity = '1';
+            } else {
+                // Switch to light mode
+                body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                sunIcon.style.opacity = '1';
+                moonIcon.style.opacity = '0.5';
+            }
+        });
+
+        // Smooth icon transitions
+        sunIcon.style.transition = 'opacity 0.3s ease';
+        moonIcon.style.transition = 'opacity 0.3s ease';
+    </script>
+
+</body>
+
+</html>
+</main>
+<!-- Chat Bot Widget -->
+<div id="chatbotWidget" class="fixed bottom-6 right-6 z-50">
+    <button id="chatbotToggle" class="bg-[#04aa6d] text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-[#038a5a] focus:outline-none text-2xl">
+        💬
+    </button>
+    <div id="chatbotBox" class="hidden mt-2 w-80 bg-white rounded-xl shadow-2xl border border-[#04aa6d]/30 flex flex-col" style="max-height:500px;">
+        <div class="flex items-center justify-between px-4 py-3 bg-[#04aa6d] rounded-t-xl">
+            <span class="font-bold text-white">Need Help?</span>
+            <button onclick="toggleChatbot()" class="text-white text-xl">&times;</button>
+        </div>
+        <div id="chatbotMessages" class="flex-1 px-4 py-2 overflow-y-auto text-sm" style="background:#f5fff6; min-height:180px; max-height:260px;"></div>
+        <form id="chatbotForm" class="flex gap-2 p-3 border-t border-[#04aa6d]/10 bg-[#f5fff6]">
+            <input id="chatbotInput" type="text" class="flex-1 px-3 py-2 rounded border border-gray-200 focus:outline-none" placeholder="Type your question..." required />
+            <button type="submit" class="bg-[#04aa6d] text-white px-4 py-2 rounded font-semibold">Send</button>
+        </form>
+    </div>
+</div>
+<script>
+// Chatbot logic
+const chatbotToggle = document.getElementById('chatbotToggle');
+const chatbotBox = document.getElementById('chatbotBox');
+function toggleChatbot() {
+    chatbotBox.classList.toggle('hidden');
+}
+chatbotToggle.onclick = toggleChatbot;
+document.getElementById('chatbotForm').onsubmit = function(e) {
+    e.preventDefault();
+    const input = document.getElementById('chatbotInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    addChatMessage('You', msg, true);
+    input.value = '';
+    setTimeout(()=>{
+        addChatMessage('Bot', getBotReply(msg), false);
+    }, 600);
+};
+function addChatMessage(sender, text, isUser) {
+    const box = document.getElementById('chatbotMessages');
+    const div = document.createElement('div');
+    div.className = 'mb-2 flex ' + (isUser ? 'justify-end' : 'justify-start');
+    div.innerHTML = `<span class="inline-block px-3 py-2 rounded-lg ${isUser ? 'bg-[#04aa6d] text-white' : 'bg-white border border-[#04aa6d]/20 text-[#04aa6d]'} max-w-[70%]">${text}</span>`;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+}
+function getBotReply(msg) {
+    msg = msg.toLowerCase();
+    if (msg.includes('booking')) return 'To book a property, use the search and select your preferred dates.';
+    if (msg.includes('host')) return 'Hosts can manage their properties from the dashboard.';
+    if (msg.includes('commission')) return 'The platform takes a 10% commission from every host booking.';
+    if (msg.includes('login')) return 'Click the login button at the top right to access your account.';
+    if (msg.includes('register')) return 'You can register as a customer or host from the registration page.';
+    if (msg.includes('help') || msg.includes('support')) return 'How can I assist you? You can ask about bookings, properties, or your account.';
+    return 'Sorry, I am a demo bot. Please contact support for more help.';
+}
+</script>

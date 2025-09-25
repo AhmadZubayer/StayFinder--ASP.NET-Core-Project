@@ -1,0 +1,62 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace StayFinder.Models
+{
+    [Table("properties")]
+    public class Property
+    {
+        [Key]
+        [Column("property_id")]
+        public int Id { get; set; }
+
+        [Required]
+        [Column("title")]
+        [MaxLength(200)]
+        public string Title { get; set; } = string.Empty;
+
+        [Required]
+        [Column("location")]
+        [MaxLength(150)]
+        public string Location { get; set; } = string.Empty;
+
+        [Required]
+        [Column("city")]
+        [MaxLength(100)]
+        public string City { get; set; } = string.Empty;
+
+        [Column("description")]
+        public string? Description { get; set; }
+
+        [Required]
+        [Column("type")]
+        [MaxLength(50)]
+        public string PropertyType { get; set; } = string.Empty;
+
+        [Column("rating")]
+        public decimal? Rating { get; set; }
+
+        [Required]
+        [Column("price", TypeName = "decimal(10,2)")]
+        public decimal Price { get; set; }
+
+        [Required]
+        [Column("available_from")]
+        public DateTime AvailableFrom { get; set; }
+
+        [Required]
+        [Column("available_to")]
+        public DateTime AvailableTo { get; set; }
+
+        [Column("image_path")]
+        [MaxLength(500)]
+        public string? ImagePath { get; set; }
+
+        // Computed properties for backward compatibility with frontend
+        [NotMapped]
+        public string Features => Description ?? "";
+
+        [NotMapped]
+        public string ImageUrl => ImagePath ?? "files/images/placeholder.jpg";
+    }
+}}}

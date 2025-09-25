@@ -1,0 +1,6 @@
+@StayFinder_HostAddress = http://localhost:5062
+
+GET {{StayFinder_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

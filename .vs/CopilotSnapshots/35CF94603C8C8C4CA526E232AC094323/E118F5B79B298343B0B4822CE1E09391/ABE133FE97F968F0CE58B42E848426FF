@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFinder API Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .json-display {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">StayFinder API Test Suite</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Properties API Tests -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Properties API</h2>
+                <div class="space-y-3">
+                    <button onclick="testGetAllProperties()" class="w-full btn bg-blue-500 text-white hover:bg-blue-600">Get All Properties</button>
+                    <button onclick="testGetProperty()" class="w-full btn bg-blue-500 text-white hover:bg-blue-600">Get Property by ID</button>
+                    <button onclick="testFilterProperties()" class="w-full btn bg-blue-500 text-white hover:bg-blue-600">Filter Properties</button>
+                    <button onclick="testSearchProperties()" class="w-full btn bg-blue-500 text-white hover:bg-blue-600">Search Properties</button>
+                    <button onclick="testPropertyStats()" class="w-full btn bg-blue-500 text-white hover:bg-blue-600">Property Stats</button>
+                </div>
+            </div>
+
+            <!-- Users API Tests -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Users API</h2>
+                <div class="space-y-3">
+                    <button onclick="testGetUsers()" class="w-full btn bg-green-500 text-white hover:bg-green-600">Get All Users</button>
+                    <button onclick="testGetUser()" class="w-full btn bg-green-500 text-white hover:bg-green-600">Get User by ID</button>
+                    <button onclick="testUserLogin()" class="w-full btn bg-green-500 text-white hover:bg-green-600">Test Login</button>
+                    <button onclick="testRegisterUser()" class="w-full btn bg-green-500 text-white hover:bg-green-600">Register User</button>
+                </div>
+            </div>
+
+            <!-- Bookings API Tests -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Bookings API</h2>
+                <div class="space-y-3">
+                    <button onclick="testGetBookings()" class="w-full btn bg-purple-500 text-white hover:bg-purple-600">Get All Bookings</button>
+                    <button onclick="testCreateBooking()" class="w-full btn bg-purple-500 text-white hover:bg-purple-600">Create Booking</button>
+                    <button onclick="testUserBookings()" class="w-full btn bg-purple-500 text-white hover:bg-purple-600">Get User Bookings</button>
+                    <button onclick="testBookingStats()" class="w-full btn bg-purple-500 text-white hover:bg-purple-600">Booking Stats</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Display -->
+        <div class="mt-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-800">API Response</h3>
+                    <button onclick="clearResults()" class="btn bg-gray-500 text-white hover:bg-gray-600 text-sm">Clear</button>
+                </div>
+                <div id="results" class="json-display">
+                    Click any test button above to see the API response here...
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Display -->
+        <div class="mt-4">
+            <div id="status" class="text-center py-2"></div>
+        </div>
+    </div>
+
+    <script>
+        // Utility functions
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            const colors = {
+                success: 'text-green-600',
+                error: 'text-red-600',
+                info: 'text-blue-600',
+                warning: 'text-yellow-600'
+            };
+            statusDiv.className = `text-center py-2 font-medium ${colors[type]}`;
+            statusDiv.textContent = message;
+            
+            // Clear after 5 seconds
+            setTimeout(() => {
+                statusDiv.textContent = '';
+            }, 5000);
+        }
+
+        function displayResults(data, status = 200) {
+            const resultsDiv = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            resultsDiv.textContent = `[${timestamp}] Status: ${status}\n\n${JSON.stringify(data, null, 2)}`;
+            
+            if (status >= 200 && status < 300) {
+                showStatus('API call successful!', 'success');
+            } else {
+                showStatus(`API call failed with status ${status}`, 'error');
+            }
+        }
+
+        function clearResults() {
+            document.getElementById('results').textContent = 'Click any test button above to see the API response here...';
+            document.getElementById('status').textContent = '';
+        }
+
+        async function makeAPICall(url, options = {}) {
+            try {
+                showStatus('Making API call...', 'info');
+                const response = await fetch(url, options);
+                const data = await response.json();
+                displayResults(data, response.status);
+                return { data, status: response.status };
+            } catch (error) {
+                displayResults({ error: error.message }, 500);
+                showStatus(`Error: ${error.message}`, 'error');
+                return { error: error.message, status: 500 };
+            }
+        }
+
+        // Properties API Tests
+        async function testGetAllProperties() {
+            await makeAPICall('/api/properties');
+        }
+
+        async function testGetProperty() {
+            await makeAPICall('/api/properties/1');
+        }
+
+        async function testFilterProperties() {
+            await makeAPICall('/api/properties/filter?type=apartment&sortBy=low-to-high');
+        }
+
+        async function testSearchProperties() {
+            await makeAPICall('/api/properties/search?destination=new%20york&minPrice=100&maxPrice=500');
+        }
+
+        async function testPropertyStats() {
+            await makeAPICall('/api/properties/stats');
+        }
+
+        // Users API Tests
+        async function testGetUsers() {
+            await makeAPICall('/api/users');
+        }
+
+        async function testGetUser() {
+            await makeAPICall('/api/users/1');
+        }
+
+        async function testUserLogin() {
+            const loginData = {
+                email: 'ahmadzubayer007@gmail.com',
+                password: '12345'
+            };
+            
+            await makeAPICall('/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginData)
+            });
+        }
+
+        async function testRegisterUser() {
+            const userData = {
+                firstName: 'Test',
+                lastName: 'User',
+                email: `test${Date.now()}@example.com`,
+                phone: '123-456-7890',
+                password: 'testpassword123',
+                role: 'customer'
+            };
+            
+            await makeAPICall('/api/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData)
+            });
+        }
+
+        // Bookings API Tests
+        async function testGetBookings() {
+            await makeAPICall('/api/bookings');
+        }
+
+        async function testCreateBooking() {
+            const bookingData = {
+                propertyId: 1,
+                checkIn: new Date(Date.now() + 86400000).toISOString().split('T')[0], // Tomorrow
+                checkOut: new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0], // 3 days later
+                guests: 2,
+                bookingNotes: 'Test booking from API test suite'
+            };
+            
+            await makeAPICall('/api/bookings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bookingData)
+            });
+        }
+
+        async function testUserBookings() {
+            await makeAPICall('/api/bookings/user/1');
+        }
+
+        async function testBookingStats() {
+            await makeAPICall('/api/bookings/stats');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            showStatus('API Test Suite loaded. Ready to test APIs!', 'success');
+        });
+    </script>
+</body>
+</html>

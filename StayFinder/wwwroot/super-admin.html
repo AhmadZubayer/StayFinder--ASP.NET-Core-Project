@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body { background: #f5fff6; }
+        .sidebar { background: #04aa6d; }
+        .sidebar a.active, .sidebar a:hover { background: #038a5a; color: #fff; }
+        .modal-bg { background: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="sidebar w-64 min-h-screen p-6 text-white flex flex-col gap-2">
+        <h2 class="text-2xl font-bold mb-8">Super Admin</h2>
+        <a href="#users" class="py-2 px-4 rounded transition active">Users</a>
+        <a href="#properties" class="py-2 px-4 rounded transition">Properties</a>
+        <a href="#reviews" class="py-2 px-4 rounded transition">Reviews</a>
+        <a href="#earnings" class="py-2 px-4 rounded transition">Earnings</a>
+        <a href="#reports" class="py-2 px-4 rounded transition">Reports</a>
+        <a href="#notifications" class="py-2 px-4 rounded transition">Notifications</a>
+    <a href="#logout" class="py-2 px-4 rounded transition mt-auto bg-red-600 text-white font-bold hover:bg-red-700" onclick="logout()">Logout</a>
+    </aside>
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <!-- Success/Error Message -->
+        <div id="messageBox" class="hidden mb-4 p-4 rounded text-white font-semibold"></div>
+        <!-- Users Section -->
+        <section id="users" class="mb-12">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-[#04aa6d]">User Management</h3>
+                <button class="bg-[#04aa6d] text-white px-4 py-2 rounded font-semibold" onclick="openUserModal('add')">Add User</button>
+            </div>
+            <div class="overflow-x-auto rounded shadow bg-white">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-[#f5fff6] text-[#04aa6d]">
+                        <tr>
+                            <th class="py-2 px-3">User ID</th>
+                            <th class="py-2 px-3">Name</th>
+                            <th class="py-2 px-3">Email</th>
+                            <th class="py-2 px-3">Role</th>
+                            <th class="py-2 px-3">Status</th>
+                            <th class="py-2 px-3">Registered</th>
+                            <th class="py-2 px-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <!-- User rows go here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- Properties Section -->
+        <section id="properties" class="mb-12 hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-[#04aa6d]">Property Management</h3>
+            </div>
+            <div class="overflow-x-auto rounded shadow bg-white">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-[#f5fff6] text-[#04aa6d]">
+                        <tr>
+                            <th class="py-2 px-3">Property ID</th>
+                            <th class="py-2 px-3">Title</th>
+                            <th class="py-2 px-3">Host</th>
+                            <th class="py-2 px-3">Status</th>
+                            <th class="py-2 px-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="propertyTableBody">
+                        <!-- Property rows go here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- Reviews Section -->
+        <section id="reviews" class="mb-12 hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-[#04aa6d]">Review Monitoring</h3>
+            </div>
+            <div class="overflow-x-auto rounded shadow bg-white">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-[#f5fff6] text-[#04aa6d]">
+                        <tr>
+                            <th class="py-2 px-3">Review ID</th>
+                            <th class="py-2 px-3">Property</th>
+                            <th class="py-2 px-3">Customer</th>
+                            <th class="py-2 px-3">Rating</th>
+                            <th class="py-2 px-3">Comment</th>
+                            <th class="py-2 px-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reviewTableBody">
+                        <!-- Review rows go here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- Earnings Section -->
+        <section id="earnings" class="mb-12 hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-[#04aa6d]">Platform Earnings</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white rounded shadow p-4">
+                    <div class="text-lg font-bold text-[#04aa6d]">Total Earnings</div>
+                    <div id="totalEarnings" class="text-2xl font-bold mt-2">$0</div>
+                </div>
+                <div class="bg-white rounded shadow p-4">
+                    <div class="text-lg font-bold text-[#04aa6d]">Earnings by Host</div>
+                    <ul id="hostEarningsList" class="mt-2 space-y-1">
+                        <!-- Host earnings go here -->
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-white rounded shadow p-4 mb-6">
+                <div class="text-lg font-bold text-[#04aa6d] mb-2">Monthly Income Chart</div>
+                <canvas id="incomeChart" height="80"></canvas>
+            </div>
+            <div class="bg-white rounded shadow p-4">
+                <div class="text-lg font-bold text-[#04aa6d] mb-2">Transaction Logs</div>
+                <table class="min-w-full text-sm">
+                    <thead class="bg-[#f5fff6] text-[#04aa6d]">
+                        <tr>
+                            <th class="py-2 px-3">Date</th>
+                            <th class="py-2 px-3">Host</th>
+                            <th class="py-2 px-3">Amount</th>
+                            <th class="py-2 px-3">Commission (10%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTableBody">
+                        <!-- Transaction rows go here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- Reports Section -->
+        <section id="reports" class="mb-12 hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-[#04aa6d]">Reports & Analytics</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+                <div class="bg-white rounded shadow p-4 text-center">
+                    <div class="text-lg font-bold text-[#04aa6d]">Active Users</div>
+                    <div id="activeUsers" class="text-2xl font-bold mt-2">0</div>
+                </div>
+                <div class="bg-white rounded shadow p-4 text-center">
+                    <div class="text-lg font-bold text-[#04aa6d]">Total Bookings</div>
+                    <div id="totalBookings" class="text-2xl font-bold mt-2">0</div>
+                </div>
+                <div class="bg-white rounded shadow p-4 text-center">
+                    <div class="text-lg font-bold text-[#04aa6d]">Top Properties</div>
+                    <ul id="topProperties" class="mt-2 text-sm"></ul>
+                </div>
+                <div class="bg-white rounded shadow p-4 text-center">
+                    <div class="text-lg font-bold text-[#04aa6d]">Top Hosts</div>
+                    <ul id="topHosts" class="mt-2 text-sm"></ul>
+                </div>
+            </div>
+        </section>
+        <!-- Notifications Section -->
+        <section id="notifications" class="mb-12 hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-[#04aa6d]">Notifications</h3>
+                <button class="bg-[#04aa6d] text-white px-4 py-2 rounded font-semibold" onclick="openNotificationModal()">Send Notification</button>
+            </div>
+            <div class="bg-white rounded shadow p-4">
+                <ul id="notificationList" class="space-y-2">
+                    <!-- Notifications go here -->
+                </ul>
+            </div>
+        </section>
+    </main>
+    <!-- User Modal -->
+    <div id="userModal" class="fixed inset-0 z-50 hidden modal-bg flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h4 id="userModalTitle" class="text-lg font-bold mb-4 text-[#04aa6d]">Add User</h4>
+            <form id="userForm" class="space-y-4">
+                <input type="hidden" id="userIdInput">
+                <div>
+                    <label class="block font-semibold mb-1">Name</label>
+                    <input id="userNameInput" type="text" class="w-full border rounded px-3 py-2" required>
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">Email</label>
+                    <input id="userEmailInput" type="email" class="w-full border rounded px-3 py-2" required>
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">Role</label>
+                    <select id="userRoleInput" class="w-full border rounded px-3 py-2">
+                        <option value="customer">Customer</option>
+                        <option value="host">Host</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">Status</label>
+                    <select id="userStatusInput" class="w-full border rounded px-3 py-2">
+                        <option value="active">Active</option>
+                        <option value="suspended">Suspended</option>
+                    </select>
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button type="button" class="px-4 py-2 rounded bg-gray-200" onclick="closeUserModal()">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded bg-[#04aa6d] text-white font-semibold">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="fixed inset-0 z-50 hidden modal-bg flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h4 class="text-lg font-bold mb-4 text-[#04aa6d]">Send Notification</h4>
+            <form id="notificationForm" class="space-y-4">
+                <div>
+                    <label class="block font-semibold mb-1">To</label>
+                    <select id="notificationToInput" class="w-full border rounded px-3 py-2">
+                        <option value="all">All Users</option>
+                        <option value="hosts">All Hosts</option>
+                        <option value="customers">All Customers</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">Message</label>
+                    <textarea id="notificationMessageInput" class="w-full border rounded px-3 py-2" required></textarea>
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button type="button" class="px-4 py-2 rounded bg-gray-200" onclick="closeNotificationModal()">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded bg-[#04aa6d] text-white font-semibold">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="fixed inset-0 z-50 hidden modal-bg flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm text-center">
+            <div id="confirmMessage" class="mb-6 text-lg text-[#04aa6d] font-bold"></div>
+            <div class="flex justify-center gap-4">
+                <button id="confirmCancelBtn" class="px-4 py-2 rounded bg-gray-200">Cancel</button>
+                <button id="confirmOkBtn" class="px-4 py-2 rounded bg-[#04aa6d] text-white font-semibold">OK</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="super-admin.js"></script>
+</body>
+</html>

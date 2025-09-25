@@ -1,0 +1,174 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using StayFinder.Data;
+using StayFinder.Models;
+
+namespace StayFinder.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PropertiesController : ControllerBase
+    {
+        private readonly ILogger<PropertiesController> _logger;
+        private readonly StayFinderDbContext _context;
+
+        public PropertiesController(ILogger<PropertiesController> logger, StayFinderDbContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetProperties()
+        {
+            try
+            {
+                var properties = await _context.Properties.ToListAsync();
+                var propertyDtos = properties.Select(PropertyDto.FromEntity).ToList();
+                return Ok(propertyDtos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving properties");
+                return StatusCode(500, "An error occurred while retrieving properties");
+            }
+        }
+
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetFilteredProperties([FromQuery] string? type = null, [FromQuery] string? sortBy = null)
+        {
+            try
+            {
+                var query = _context.Properties.AsQueryable();
+
+                // Filter by type
+                if (!string.IsNullOrEmpty(type) && type.ToLower() != "all")
+                {
+                    query = query.Where(p => p.PropertyType.ToLower() == type.ToLower());
+                }
+
+                // Sort by price
+                if (!string.IsNullOrEmpty(sortBy))
+                {
+                    query = sortBy.ToLower() switch
+                    {
+                        "low-to-high" => query.OrderBy(p => p.Price),
+                        "high-to-low" => query.OrderByDescending(p => p.Price),
+                        _ => query
+                    };
+                }
+
+                var properties = await query.ToListAsync();
+                var propertyDtos = properties.Select(PropertyDto.FromEntity).ToList();
+                return Ok(propertyDtos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error filtering properties");
+                return StatusCode(500, "An error occurred while filtering properties");
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PropertyDto>> GetProperty(int id)
+        {
+            try
+            {
+                var property = await _context.Properties.FindAsync(id);
+
+                if (property == null)
+                {
+                    return NotFound();
+                }
+
+                var propertyDto = PropertyDto.FromEntity(property);
+                return Ok(propertyDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving property with id {PropertyId}", id);
+                return StatusCode(500, "An error occurred while retrieving the property");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<PropertyDto>> CreateProperty(Property property)
+        {
+            try
+            {
+                _context.Properties.Add(property);
+                await _context.SaveChangesAsync();
+
+                var propertyDto = PropertyDto.FromEntity(property);
+                return CreatedAtAction(nameof(GetProperty), new { id = property.Id }, propertyDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating property");
+                return StatusCode(500, "An error occurred while creating the property");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProperty(int id, Property property)
+        {
+            if (id != property.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(property).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PropertyExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating property with id {PropertyId}", id);
+                return StatusCode(500, "An error occurred while updating the property");
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProperty(int id)
+        {
+            try
+            {
+                var property = await _context.Properties.FindAsync(id);
+                if (property == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Properties.Remove(property);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting property with id {PropertyId}", id);
+                return StatusCode(500, "An error occurred while deleting the property");
+            }
+        }
+
+        private bool PropertyExists(int id)
+        {
+            return _context.Properties.Any(e => e.Id == id);
+        }
+    }
+}

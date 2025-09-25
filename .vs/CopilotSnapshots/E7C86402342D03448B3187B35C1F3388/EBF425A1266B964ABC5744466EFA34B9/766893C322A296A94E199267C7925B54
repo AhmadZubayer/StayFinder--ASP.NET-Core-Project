@@ -1,0 +1,271 @@
+﻿// Global variables
+let allProperties = [];
+let currentFilter = 'all';
+let currentSort = '';
+
+// DOM Content Loaded Event
+document.addEventListener('DOMContentLoaded', function() {
+    loadProperties();
+    setupEventListeners();
+});
+
+// Setup event listeners for tabs and sorting
+function setupEventListeners() {
+    // Tab filtering
+    const tabs = document.querySelectorAll('input[name="my_tabs_1"]');
+    tabs.forEach(tab => {
+        tab.addEventListener('change', function() {
+            if (this.checked) {
+                const filterType = this.getAttribute('aria-label').toLowerCase();
+                currentFilter = filterType;
+                filterAndDisplayProperties();
+            }
+        });
+    });
+}
+
+// Load properties from API
+async function loadProperties() {
+    try {
+        const response = await fetch('/api/properties');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        allProperties = await response.json();
+        displayProperties(allProperties);
+    } catch (error) {
+        console.error('Error loading properties:', error);
+        displayErrorMessage('Failed to load properties. Please try again later.');
+    }
+}
+
+// Filter and display properties based on current filter and sort
+async function filterAndDisplayProperties() {
+    try {
+        const queryParams = new URLSearchParams();
+        
+        if (currentFilter !== 'all') {
+            queryParams.append('type', currentFilter);
+        }
+        
+        if (currentSort) {
+            queryParams.append('sortBy', currentSort);
+        }
+
+        const url = `/api/properties/filter?${queryParams.toString()}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const filteredProperties = await response.json();
+        displayProperties(filteredProperties);
+    } catch (error) {
+        console.error('Error filtering properties:', error);
+        displayErrorMessage('Failed to filter properties. Please try again later.');
+    }
+}
+
+// Sort properties by price
+function sortByPrice(sortType) {
+    currentSort = sortType;
+    filterAndDisplayProperties();
+    
+    // Update dropdown button text
+    const dropdownButton = document.querySelector('.dropdown .btn');
+    if (dropdownButton) {
+        const sortText = sortType === 'low-to-high' ? 'Price: Low to High' : 'Price: High to Low';
+        dropdownButton.innerHTML = `${sortText} <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>`;
+    }
+}
+
+// Create a single property card element
+function createPropertyCard(property) {
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'property-cards bg-white rounded-xl shadow-lg overflow-hidden max-w-xs mx-auto mb-6';
+    cardDiv.setAttribute('data-property-id', property.id);
+    
+    cardDiv.innerHTML = `
+        <img src="${property.imageUrl}" alt="Property Image" class="w-full h-40 object-cover bg-gray-200" onerror="this.src='./files/placeholder.jpg'">
+        <div class="p-4">
+            <h3 class="property-title text-lg font-bold text-gray-800 mb-1">${escapeHtml(property.title)}</h3>
+            <p class="property-city text-sm text-gray-600 mb-1">${escapeHtml(property.city)}</p>
+            <p class="property-features text-xs text-gray-500 mb-3">${escapeHtml(property.features)}</p>
+            
+            <!-- Price and Button Row -->
+            <div class="flex items-center justify-between">
+                <p class="property-price text-xl font-bold text-[#04aa6d]">$${property.price.toFixed(2)}<span class="text-xs font-normal text-gray-500">/Day</span></p>
+                <button class="btn btn-outline btn-xs rounded-lg hover:bg-[#04aa6d] hover:text-white hover:border-[#04aa6d]" onclick="viewPropertyDetails(${property.id})">View Details</button>
+            </div>
+        </div>
+    `;
+    
+    return cardDiv;
+}
+
+// Display properties in the container
+function displayProperties(properties) {
+    const container = document.querySelector('.property-card-container');
+    if (!container) {
+        console.error('Property container not found');
+        return;
+    }
+
+    // Find or create the grid container
+    let gridContainer = container.querySelector('.property-grid');
+    if (!gridContainer) {
+        // Remove existing property cards
+        const existingCards = container.querySelectorAll('.property-cards');
+        existingCards.forEach(card => card.remove());
+        
+        // Create grid container
+        gridContainer = document.createElement('div');
+        gridContainer.className = 'property-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6';
+        container.appendChild(gridContainer);
+    } else {
+        // Clear existing cards
+        gridContainer.innerHTML = '';
+    }
+
+    // Add property cards
+    if (properties.length === 0) {
+        displayNoResultsMessage(gridContainer);
+    } else {
+        properties.forEach(property => {
+            const card = createPropertyCard(property);
+            gridContainer.appendChild(card);
+        });
+    }
+
+    // Update results count
+    updateResultsCount(properties.length);
+}
+
+// Display no results message
+function displayNoResultsMessage(container) {
+    const noResultsDiv = document.createElement('div');
+    noResultsDiv.className = 'col-span-full text-center py-12';
+    noResultsDiv.innerHTML = `
+        <div class="text-gray-500">
+            <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <h3 class="text-lg font-medium mb-2">No properties found</h3>
+            <p class="text-sm">Try adjusting your filters or search criteria.</p>
+        </div>
+    `;
+    container.appendChild(noResultsDiv);
+}
+
+// Display error message
+function displayErrorMessage(message) {
+    const container = document.querySelector('.property-card-container');
+    if (!container) return;
+
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'text-center py-12';
+    errorDiv.innerHTML = `
+        <div class="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
+            <div class="text-red-600">
+                <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 14.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+                <h3 class="text-lg font-medium mb-2">Error Loading Properties</h3>
+                <p class="text-sm">${escapeHtml(message)}</p>
+                <button onclick="loadProperties()" class="mt-4 btn btn-sm btn-outline btn-error">Try Again</button>
+            </div>
+        </div>
+    `;
+    
+    // Clear existing content and show error
+    const gridContainer = container.querySelector('.property-grid');
+    if (gridContainer) {
+        gridContainer.innerHTML = '';
+        gridContainer.appendChild(errorDiv);
+    }
+}
+
+// Update results count
+function updateResultsCount(count) {
+    const titleElement = container.querySelector('.property-card-container p');
+    if (titleElement) {
+        const baseText = 'Popular Properties Nearby';
+        titleElement.textContent = count > 0 ? `${baseText} (${count} found)` : baseText;
+    }
+}
+
+// Handle property details view
+function viewPropertyDetails(propertyId) {
+    const property = allProperties.find(p => p.id === propertyId);
+    if (property) {
+        // For now, just log the property details
+        // In a real application, you might navigate to a details page or open a modal
+        console.log('Property details:', property);
+        alert(`Property: ${property.title}\nLocation: ${property.city}\nPrice: $${property.price}/Day\nFeatures: ${property.features}`);
+    }
+}
+
+// Search functionality
+function setupSearchFunctionality() {
+    const searchInput = document.querySelector('#search-bar input[type="search"]');
+    if (searchInput) {
+        let searchTimeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const searchTerm = this.value.toLowerCase().trim();
+                filterPropertiesBySearch(searchTerm);
+            }, 300); // Debounce search
+        });
+    }
+}
+
+// Filter properties by search term
+function filterPropertiesBySearch(searchTerm) {
+    if (!searchTerm) {
+        filterAndDisplayProperties();
+        return;
+    }
+
+    const filteredProperties = allProperties.filter(property => {
+        return property.title.toLowerCase().includes(searchTerm) ||
+               property.city.toLowerCase().includes(searchTerm) ||
+               property.features.toLowerCase().includes(searchTerm) ||
+               property.propertyType.toLowerCase().includes(searchTerm);
+    });
+
+    displayProperties(filteredProperties);
+}
+
+// Utility function to escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Initialize search functionality when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    setupSearchFunctionality();
+});
+
+// Refresh properties (useful for manual refresh)
+function refreshProperties() {
+    currentFilter = 'all';
+    currentSort = '';
+    
+    // Reset tab selection
+    const firstTab = document.querySelector('input[name="my_tabs_1"][aria-label="All"]');
+    if (firstTab) {
+        firstTab.checked = true;
+    }
+    
+    // Reset sort dropdown
+    const dropdownButton = document.querySelector('.dropdown .btn');
+    if (dropdownButton) {
+        dropdownButton.innerHTML = `Sort by Price <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>`;
+    }
+    
+    loadProperties();
+}

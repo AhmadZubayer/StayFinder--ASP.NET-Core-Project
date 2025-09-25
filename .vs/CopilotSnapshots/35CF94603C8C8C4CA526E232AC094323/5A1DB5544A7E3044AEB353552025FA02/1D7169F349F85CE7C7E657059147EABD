@@ -1,0 +1,122 @@
+﻿using Microsoft.EntityFrameworkCore;
+using StayFinder.Models;
+
+namespace StayFinder.Data
+{
+    public class StayFinderDbContext : DbContext
+    {
+        public StayFinderDbContext(DbContextOptions<StayFinderDbContext> options) : base(options)
+        {
+        }
+
+        public DbSet<Property> Properties { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Property>(entity =>
+            {
+                entity.ToTable("properties", t => 
+                    t.HasCheckConstraint("CK_Properties_Type", 
+                        "[type] IN ('apartment', 'villa', 'room')"));
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("property_id")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Title)
+                    .HasColumnName("title")
+                    .HasMaxLength(200)
+                    .IsRequired();
+
+                entity.Property(e => e.Location)
+                    .HasColumnName("location")
+                    .HasMaxLength(150)
+                    .IsRequired();
+
+                entity.Property(e => e.City)
+                    .HasColumnName("city")
+                    .HasMaxLength(100)
+                    .IsRequired();
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.PropertyType)
+                    .HasColumnName("type")
+                    .HasMaxLength(50)
+                    .IsRequired();
+
+                entity.Property(e => e.Rating)
+                    .HasColumnName("rating")
+                    .HasColumnType("decimal(2,1)");
+
+                entity.Property(e => e.Price)
+                    .HasColumnName("price")
+                    .HasColumnType("decimal(10,2)")
+                    .IsRequired();
+
+                entity.Property(e => e.AvailableFrom)
+                    .HasColumnName("available_from")
+                    .IsRequired();
+
+                entity.Property(e => e.AvailableTo)
+                    .HasColumnName("available_to")
+                    .IsRequired();
+
+                entity.Property(e => e.ImagePath)
+                    .HasColumnName("image_path")
+                    .HasMaxLength(500);
+            });
+
+            // Seed data
+           /* modelBuilder.Entity<Property>().HasData(
+                new Property
+                {
+                    Id = 1,
+                    Title = "Modern Apartment in Downtown",
+                    Location = "123 Main Street",
+                    City = "New York",
+                    Description = "Beautiful modern apartment with city views",
+                    PropertyType = "apartment",
+                    Rating = 4.5m,
+                    Price = 150.00m,
+                    AvailableFrom = new DateTime(2025, 1, 1),
+                    AvailableTo = new DateTime(2025, 7, 1),
+                    ImagePath = "files/images/1.jpg"
+                },
+                new Property
+                {
+                    Id = 2,
+                    Title = "Luxury Villa with Pool",
+                    Location = "456 Ocean Drive",
+                    City = "Miami",
+                    Description = "Stunning villa with private pool and ocean view",
+                    PropertyType = "villa",
+                    Rating = 4.8m,
+                    Price = 300.00m,
+                    AvailableFrom = new DateTime(2025, 1, 1),
+                    AvailableTo = new DateTime(2025, 4, 1),
+                    ImagePath = "files/images/2.jpg"
+                },
+                new Property
+                {
+                    Id = 3,
+                    Title = "Cozy Private Room",
+                    Location = "789 Park Avenue",
+                    City = "San Francisco",
+                    Description = "Comfortable private room in shared house",
+                    PropertyType = "room",
+                    Rating = 4.2m,
+                    Price = 80.00m,
+                    AvailableFrom = new DateTime(2025, 1, 1),
+                    AvailableTo = new DateTime(2026, 1, 1),
+                    ImagePath = "files/images/3.jpg"
+                }
+            );*/
+
+            base.OnModelCreating(modelBuilder);
+        }
+    }
+}

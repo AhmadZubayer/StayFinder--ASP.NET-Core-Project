@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Dark Mode Styles -->
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5fff6;
+            --bg-card: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-accent: #04aa6d;
+            --text-accent-hover: #038a5a;
+            --border-color: #e5e7eb;
+            --input-bg: #ffffff;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f2e;
+            --bg-card: #1a1f2e;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-accent: #10b981;
+            --text-accent-hover: #059669;
+            --border-color: #374151;
+            --input-bg: #1f2937;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark mode specific overrides */
+        [data-theme="dark"] .logo {
+            color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .logo:hover {
+            color: var(--text-accent-hover) !important;
+        }
+
+        [data-theme="dark"] .btn.bg-\[#04aa6d\] {
+            background-color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .btn.bg-\[#04aa6d\]:hover {
+            background-color: var(--text-accent-hover) !important;
+        }
+
+        [data-theme="dark"] .text-\[#04aa6d\] {
+            color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .bg-white {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.shadow-sm {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.border-b {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.shadow-sm {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.shadow-sm.border {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-white.rounded-lg.shadow-sm.border.p-6 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .text-gray-800 {
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .text-gray-600 {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .text-gray-700 {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .text-gray-500 {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .border-gray-300 {
+            border-color: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .bg-gray-50 {
+            background-color: var(--bg-secondary) !important;
+        }
+
+        [data-theme="dark"] .bg-gray-100 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .bg-base-100 {
+            background-color: var(--bg-card) !important;
+        }
+
+        [data-theme="dark"] .input-bordered {
+            background-color: var(--input-bg) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .input-bordered::placeholder {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .dropdown-content {
+            background-color: var(--bg-card) !important;
+            border-color: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .dropdown-content a {
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .dropdown-content a:hover {
+            background-color: var(--bg-secondary) !important;
+        }
+
+        [data-theme="dark"] .tabs .tab {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .tabs .tab[aria-pressed="true"] {
+            color: var(--text-accent) !important;
+        }
+
+        [data-theme="dark"] .checkbox {
+            accent-color: var(--text-accent) !important;
+        }
+
+        /* Universal dark mode override for any remaining white backgrounds */
+        [data-theme="dark"] *[class*="bg-white"] {
+            background-color: var(--bg-card) !important;
+        }
+
+        /* Smooth transitions for theme switching */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
+
+</head>
+<body class="font-['Roboto'] w-full">
+    <header>
+    <nav class="flex items-center justify-between py-4 mx-6">
+            <a href="home.html" class="logo text-[#04aa6d] font-bold text-[38px] flex-shrink-0 hover:text-[#038a5a] transition-colors cursor-pointer">
+                StayFinder
+            </a>
+
+            <!-- Middle: Search Bar -->
+            <div id="search-bar" class="flex-1 max-w-2xl mx-8">
+                <label class="input input-bordered flex items-center gap-2 w-full">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                            stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input type="search" class="grow" placeholder="Search destinations, properties..." />
+                </label>
+            </div>
+
+            <div class="display-mode">
+                <label class="flex cursor-pointer gap-2 items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="sun-icon">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+                    </svg>
+                    <input type="checkbox" id="theme-toggle" class="toggle toggle-primary" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="moon-icon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </label>
+            </div>
+            <div class="nav-btns flex gap-4 flex-shrink-0 items-center">
+                <button class="btn btn rounded-lg">Become a Host</button>
+                
+                <!-- Account Dropdown -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn bg-[#04aa6d] text-white rounded-lg hover:bg-[#038a5a]">
+                        Account
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg border">
+                        <li>
+                            <a id="manage-account-btn" class="flex items-center gap-2 hover:bg-gray-100 rounded-lg px-3 py-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                                Manage Account
+                            </a>
+                        </li>
+                        <li>
+                            <a id="logout-btn" class="flex items-center gap-2 hover:bg-gray-100 rounded-lg px-3 py-2 text-red-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                </svg>
+                                Log Out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <button class="text-sm p-2 bg-transparent border-none hover:text-[#04aa6d]">Need Help ?</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="min-h-screen bg-gray-50">
+        <!-- Dashboard Header -->
+        <section class="bg-white shadow-sm border-b">
+            <div class="mx-6 py-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">My Dashboard</h1>
+                <p class="text-gray-600">Manage your bookings, payments, and account settings</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="bg-white border-b">
+            <div class="mx-6 py-4">
+                <div class="tabs tabs-boxed bg-gray-100">
+                    <input type="radio" name="dashboard_tabs" class="tab" aria-label="Bookings" checked="checked" />
+                    <input type="radio" name="dashboard_tabs" class="tab" aria-label="History" />
+                    <input type="radio" name="dashboard_tabs" class="tab" aria-label="Payment History" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab Content -->
+        <section class="mx-6 py-8">
+            <div class="max-w-6xl">
+                <!-- Bookings Content (Default Active) -->
+                <div id="bookings-content" class="tab-content">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Current Bookings</h2>
+                    <div class="grid gap-4">
+                        <!-- Booking cards will go here -->
+                        <div class="bg-white rounded-lg shadow-sm border p-6">
+                            <p class="text-gray-600">No current bookings found.</p>
+                            <p class="text-sm text-gray-500 mt-2">Your upcoming reservations will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Content -->
+                <div id="history-content" class="tab-content hidden">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Booking History</h2>
+                    <div class="grid gap-4">
+                        <!-- History cards will go here -->
+                        <div class="bg-white rounded-lg shadow-sm border p-6">
+                            <p class="text-gray-600">No booking history found.</p>
+                            <p class="text-sm text-gray-500 mt-2">Your past stays will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment History Content -->
+                <div id="payment-content" class="tab-content hidden">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Payment History</h2>
+                    <div class="grid gap-4">
+                        <!-- Payment cards will go here -->
+                        <div class="bg-white rounded-lg shadow-sm border p-6">
+                            <p class="text-gray-600">No payment history found.</p>
+                            <p class="text-sm text-gray-500 mt-2">Your transaction history will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('input[name="dashboard_tabs"]');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('change', function() {
+                    // Hide all content
+                    contents.forEach(content => content.classList.add('hidden'));
+                    
+                    // Show selected content
+                    if (index === 0) {
+                        document.getElementById('bookings-content').classList.remove('hidden');
+                    } else if (index === 1) {
+                        document.getElementById('history-content').classList.remove('hidden');
+                    } else if (index === 2) {
+                        document.getElementById('payment-content').classList.remove('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <!-- Dark Mode Toggle Script -->
+    <script>
+        // Dark mode functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const sunIcon = document.querySelector('.sun-icon');
+        const moonIcon = document.querySelector('.moon-icon');
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        // Apply the saved theme
+        if (currentTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
+            sunIcon.style.opacity = '0.5';
+            moonIcon.style.opacity = '1';
+        } else {
+            body.setAttribute('data-theme', 'light');
+            themeToggle.checked = false;
+            sunIcon.style.opacity = '1';
+            moonIcon.style.opacity = '0.5';
+        }
+
+        // Theme toggle event listener
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                // Switch to dark mode
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                sunIcon.style.opacity = '0.5';
+                moonIcon.style.opacity = '1';
+            } else {
+                // Switch to light mode
+                body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                sunIcon.style.opacity = '1';
+                moonIcon.style.opacity = '0.5';
+            }
+        });
+
+        // Smooth icon transitions
+        sunIcon.style.transition = 'opacity 0.3s ease';
+        moonIcon.style.transition = 'opacity 0.3s ease';
+    </script>
+    
+    <script src="logout.js"></script>
+    <script src="dashboard.js"></script>
+    
+</body>
+</html>

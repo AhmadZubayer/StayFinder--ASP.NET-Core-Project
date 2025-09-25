@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Registration</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-group { margin: 10px 0; }
+        input, select, button { padding: 10px; margin: 5px 0; width: 300px; }
+        button { background: #04aa6d; color: white; border: none; cursor: pointer; }
+        .result { margin: 20px 0; padding: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Test Registration API</h1>
+    
+    <form id="testForm">
+        <div class="form-group">
+            <label>First Name:</label>
+            <input type="text" name="firstName" value="John" required>
+        </div>
+        <div class="form-group">
+            <label>Last Name:</label>
+            <input type="text" name="lastName" value="Doe" required>
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" value="john.doe@test.com" required>
+        </div>
+        <div class="form-group">
+            <label>Phone:</label>
+            <input type="tel" name="phone" value="1234567890">
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" name="password" value="password123" required>
+        </div>
+        <div class="form-group">
+            <label>Confirm Password:</label>
+            <input type="password" name="confirmPassword" value="password123" required>
+        </div>
+        <div class="form-group">
+            <label>Role:</label>
+            <select name="role">
+                <option value="customer">Customer</option>
+                <option value="host">Host</option>
+            </select>
+        </div>
+        <button type="submit">Test Registration</button>
+    </form>
+    
+    <div id="result" class="result"></div>
+    
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const registrationData = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone') || '',
+                password: formData.get('password'),
+                confirmPassword: formData.get('confirmPassword'),
+                role: formData.get('role') || 'customer'
+            };
+            
+            console.log('Sending registration data:', registrationData);
+            
+            try {
+                const response = await fetch('/api/Auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(registrationData)
+                });
+
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+
+                const result = await response.json();
+                console.log('Response data:', result);
+
+                document.getElementById('result').innerHTML = `
+                    <h3>Response (Status: ${response.status})</h3>
+                    <pre>${JSON.stringify(result, null, 2)}</pre>
+                    <p><strong>Success:</strong> ${response.ok}</p>
+                `;
+
+            } catch (error) {
+                console.error('Registration error:', error);
+                document.getElementById('result').innerHTML = `
+                    <h3>Error</h3>
+                    <p style="color: red;">${error.message}</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

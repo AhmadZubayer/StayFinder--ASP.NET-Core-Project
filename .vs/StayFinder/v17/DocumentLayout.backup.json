@@ -1,0 +1,303 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\migrations\\20250907012851_fixstaticdates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\migrations\\20250907012851_fixstaticdates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\models\\propertydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\models\\propertydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\controllers\\propertiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\controllers\\propertiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\wwwroot\\home.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\wwwroot\\home.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\models\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\models\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\migrations\\stayfinderdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\migrations\\stayfinderdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\migrations\\20250907012050_seeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\migrations\\20250907012050_seeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\wwwroot\\js\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\wwwroot\\js\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\data\\stayfinderdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\data\\stayfinderdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\stayfinder.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\stayfinder.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\wwwroot\\test-api.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\wwwroot\\test-api.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\models\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\models\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|c:\\users\\ahmad zubayer\\documents\\docs\\semesters a i u b\\semester 06\\oop-2\\project\\stayfinder web api\\stayfinder\\stayfinder\\controllers\\bookingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6BED91D-1D8C-40E5-ACDF-95647A1F20CA}|StayFinder\\StayFinder.csproj|solutionrelative:stayfinder\\controllers\\bookingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "BookingsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Controllers\\BookingsController.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Controllers\\BookingsController.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Controllers\\BookingsController.cs",
+              "RelativeToolTip": "StayFinder\\Controllers\\BookingsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAH8BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T09:53:02.287Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "StayFinder\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T09:48:37.383Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Booking.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Models\\Booking.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Models\\Booking.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Models\\Booking.cs",
+              "RelativeToolTip": "StayFinder\\Models\\Booking.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T09:45:05.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Models\\User.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Models\\User.cs",
+              "RelativeToolTip": "StayFinder\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T09:44:36.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "StayFinderDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Migrations\\StayFinderDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Migrations\\StayFinderDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Migrations\\StayFinderDbContextModelSnapshot.cs",
+              "RelativeToolTip": "StayFinder\\Migrations\\StayFinderDbContextModelSnapshot.cs",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T18:24:33.749Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20250907012851_FixStaticDates.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Migrations\\20250907012851_FixStaticDates.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Migrations\\20250907012851_FixStaticDates.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Migrations\\20250907012851_FixStaticDates.cs",
+              "RelativeToolTip": "StayFinder\\Migrations\\20250907012851_FixStaticDates.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAYwCIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T18:24:01.48Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PropertyDto.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Models\\PropertyDto.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Models\\PropertyDto.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Models\\PropertyDto.cs",
+              "RelativeToolTip": "StayFinder\\Models\\PropertyDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T00:56:05.787Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "StayFinderDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Data\\StayFinderDbContext.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Data\\StayFinderDbContext.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Data\\StayFinderDbContext.cs",
+              "RelativeToolTip": "StayFinder\\Data\\StayFinderDbContext.cs",
+              "ViewState": "AgIAABMBAAAAAAAAAEBVwBcBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T00:54:31.143Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "test-api.html",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\wwwroot\\test-api.html",
+              "RelativeDocumentMoniker": "StayFinder\\wwwroot\\test-api.html",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\wwwroot\\test-api.html",
+              "RelativeToolTip": "StayFinder\\wwwroot\\test-api.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-09-07T00:49:00.282Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PropertiesController.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Controllers\\PropertiesController.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Controllers\\PropertiesController.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Controllers\\PropertiesController.cs",
+              "RelativeToolTip": "StayFinder\\Controllers\\PropertiesController.cs",
+              "ViewState": "AgIAAFoBAAAAAAAAAAAtwGsBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T00:45:31.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Property.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Models\\Property.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Models\\Property.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Models\\Property.cs",
+              "RelativeToolTip": "StayFinder\\Models\\Property.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T00:45:11.608Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "home.html",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\wwwroot\\home.html",
+              "RelativeDocumentMoniker": "StayFinder\\wwwroot\\home.html",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\wwwroot\\home.html",
+              "RelativeToolTip": "StayFinder\\wwwroot\\home.html",
+              "ViewState": "AgIAAKACAAAAAAAAAAAMwK4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-09-07T00:38:41.713Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20250907012050_SeedData.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Migrations\\20250907012050_SeedData.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Migrations\\20250907012050_SeedData.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Migrations\\20250907012050_SeedData.cs",
+              "RelativeToolTip": "StayFinder\\Migrations\\20250907012050_SeedData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T18:24:00.891Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "home.js",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\wwwroot\\js\\home.js",
+              "RelativeDocumentMoniker": "StayFinder\\wwwroot\\js\\home.js",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\wwwroot\\js\\home.js",
+              "RelativeToolTip": "StayFinder\\wwwroot\\js\\home.js",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAiwCYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-09-07T00:40:17.329Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "StayFinder.csproj",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\StayFinder.csproj",
+              "RelativeDocumentMoniker": "StayFinder\\StayFinder.csproj",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\StayFinder.csproj",
+              "RelativeToolTip": "StayFinder\\StayFinder.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-07T00:37:49.82Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Program.cs",
+              "RelativeDocumentMoniker": "StayFinder\\Program.cs",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\Program.cs",
+              "RelativeToolTip": "StayFinder\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-06T15:02:01.569Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\appsettings.json",
+              "RelativeDocumentMoniker": "StayFinder\\appsettings.json",
+              "ToolTip": "C:\\Users\\Ahmad Zubayer\\Documents\\Docs\\SEMESTERS A I U B\\Semester 06\\OOP-2\\Project\\StayFinder Web API\\StayFinder\\StayFinder\\appsettings.json",
+              "RelativeToolTip": "StayFinder\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-06T15:01:46.605Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

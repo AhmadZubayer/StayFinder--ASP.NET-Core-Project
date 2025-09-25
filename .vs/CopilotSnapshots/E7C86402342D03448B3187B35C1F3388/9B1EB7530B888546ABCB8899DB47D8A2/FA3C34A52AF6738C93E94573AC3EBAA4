@@ -1,0 +1,13 @@
+﻿namespace StayFinder.Models
+{
+    public class Property
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
+        public string Features { get; set; } = string.Empty;
+        public decimal Price { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
+        public string PropertyType { get; set; } = string.Empty; // "All", "Apartments", "Villas", "Rooms"
+    }
+}

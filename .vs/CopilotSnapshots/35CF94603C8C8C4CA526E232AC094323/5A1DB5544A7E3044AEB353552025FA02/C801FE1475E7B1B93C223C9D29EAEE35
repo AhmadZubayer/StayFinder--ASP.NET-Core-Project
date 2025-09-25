@@ -1,0 +1,364 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using StayFinder.Data;
+using StayFinder.Models;
+using System.ComponentModel.DataAnnotations;
+
+namespace StayFinder.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PropertiesController : ControllerBase
+    {
+        private readonly ILogger<PropertiesController> _logger;
+        private readonly StayFinderDbContext _context;
+
+        public PropertiesController(ILogger<PropertiesController> logger, StayFinderDbContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetProperties()
+        {
+            try
+            {
+                var properties = await _context.Properties.ToListAsync();
+                var propertyDtos = properties.Select(PropertyDto.FromEntity).ToList();
+                return Ok(propertyDtos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving properties");
+                return StatusCode(500, "An error occurred while retrieving properties");
+            }
+        }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<PropertyDto>>> SearchProperties(
+            [FromQuery] string? destination = null,
+            [FromQuery] DateTime? checkIn = null,
+            [FromQuery] DateTime? checkOut = null,
+            [FromQuery] int? guests = null,
+            [FromQuery] decimal? minPrice = null,
+            [FromQuery] decimal? maxPrice = null,
+            [FromQuery] decimal? minRating = null,
+            [FromQuery] decimal? maxRating = null,
+            [FromQuery] string? amenities = null)
+        {
+            try
+            {
+                var query = _context.Properties.AsQueryable();
+
+                // Filter by destination (city, location, or title)
+                if (!string.IsNullOrEmpty(destination))
+                {
+                    query = query.Where(p => 
+                        p.City.ToLower().Contains(destination.ToLower()) ||
+                        p.Location.ToLower().Contains(destination.ToLower()) ||
+                        p.Title.ToLower().Contains(destination.ToLower()));
+                }
+
+                // Filter by availability dates
+                if (checkIn.HasValue && checkOut.HasValue)
+                {
+                    query = query.Where(p => 
+                        p.AvailableFrom <= checkIn.Value && 
+                        p.AvailableTo >= checkOut.Value);
+                }
+
+                // Filter by price range
+                if (minPrice.HasValue)
+                {
+                    query = query.Where(p => p.Price >= minPrice.Value);
+                }
+
+                if (maxPrice.HasValue)
+                {
+                    query = query.Where(p => p.Price <= maxPrice.Value);
+                }
+
+                // Filter by rating range
+                if (minRating.HasValue)
+                {
+                    query = query.Where(p => p.Rating >= minRating.Value);
+                }
+
+                if (maxRating.HasValue)
+                {
+                    query = query.Where(p => p.Rating <= maxRating.Value);
+                }
+
+                // Note: Guests and amenities filtering would require additional database schema
+                // For now, we'll handle these on the frontend side
+
+                var properties = await query.ToListAsync();
+                var propertyDtos = properties.Select(PropertyDto.FromEntity).ToList();
+                return Ok(propertyDtos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error searching properties");
+                return StatusCode(500, "An error occurred while searching properties");
+            }
+        }
+
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetFilteredProperties(
+            [FromQuery] string? type = null, 
+            [FromQuery] string? sortBy = null,
+            [FromQuery] string? city = null,
+            [FromQuery] decimal? minPrice = null,
+            [FromQuery] decimal? maxPrice = null)
+        {
+            try
+            {
+                var query = _context.Properties.AsQueryable();
+
+                // Filter by type
+                if (!string.IsNullOrEmpty(type) && type.ToLower() != "all")
+                {
+                    // Handle different tab names
+                    var filterType = type.ToLower() switch
+                    {
+                        "apartments" => "apartment",
+                        "villas" => "villa",
+                        "rooms" => "room",
+                        _ => type.ToLower()
+                    };
+                    query = query.Where(p => p.PropertyType.ToLower() == filterType);
+                }
+
+                // Filter by city
+                if (!string.IsNullOrEmpty(city))
+                {
+                    query = query.Where(p => p.City.ToLower().Contains(city.ToLower()));
+                }
+
+                // Filter by price range
+                if (minPrice.HasValue)
+                {
+                    query = query.Where(p => p.Price >= minPrice.Value);
+                }
+
+                if (maxPrice.HasValue)
+                {
+                    query = query.Where(p => p.Price <= maxPrice.Value);
+                }
+
+                // Sort by price
+                if (!string.IsNullOrEmpty(sortBy))
+                {
+                    query = sortBy.ToLower() switch
+                    {
+                        "low-to-high" => query.OrderBy(p => p.Price),
+                        "high-to-low" => query.OrderByDescending(p => p.Price),
+                        "rating" => query.OrderByDescending(p => p.Rating),
+                        "newest" => query.OrderByDescending(p => p.Id),
+                        _ => query
+                    };
+                }
+
+                var properties = await query.ToListAsync();
+                var propertyDtos = properties.Select(PropertyDto.FromEntity).ToList();
+                return Ok(propertyDtos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error filtering properties");
+                return StatusCode(500, "An error occurred while filtering properties");
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PropertyDto>> GetProperty(int id)
+        {
+            try
+            {
+                var property = await _context.Properties.FindAsync(id);
+
+                if (property == null)
+                {
+                    return NotFound();
+                }
+
+                var propertyDto = PropertyDto.FromEntity(property);
+                return Ok(propertyDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving property with id {PropertyId}", id);
+                return StatusCode(500, "An error occurred while retrieving the property");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<PropertyDto>> CreateProperty(PropertyCreateDto propertyCreateDto)
+        {
+            try
+            {
+                // Validate the property type
+                var validTypes = new[] { "apartment", "villa", "room" };
+                if (!validTypes.Contains(propertyCreateDto.PropertyType.ToLower()))
+                {
+                    return BadRequest("Invalid property type. Must be one of: apartment, villa, room");
+                }
+
+                var property = new Property
+                {
+                    Title = propertyCreateDto.Title,
+                    Location = propertyCreateDto.Location,
+                    City = propertyCreateDto.City,
+                    Description = propertyCreateDto.Description,
+                    PropertyType = propertyCreateDto.PropertyType.ToLower(),
+                    Rating = propertyCreateDto.Rating,
+                    Price = propertyCreateDto.Price,
+                    AvailableFrom = propertyCreateDto.AvailableFrom,
+                    AvailableTo = propertyCreateDto.AvailableTo,
+                    ImagePath = propertyCreateDto.ImagePath
+                };
+
+                _context.Properties.Add(property);
+                await _context.SaveChangesAsync();
+
+                var propertyDto = PropertyDto.FromEntity(property);
+                return CreatedAtAction(nameof(GetProperty), new { id = property.Id }, propertyDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating property");
+                return StatusCode(500, "An error occurred while creating the property");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProperty(int id, PropertyUpdateDto propertyUpdateDto)
+        {
+            try
+            {
+                var property = await _context.Properties.FindAsync(id);
+                if (property == null)
+                {
+                    return NotFound();
+                }
+
+                // Update properties
+                property.Title = propertyUpdateDto.Title;
+                property.Location = propertyUpdateDto.Location;
+                property.City = propertyUpdateDto.City;
+                property.Description = propertyUpdateDto.Description;
+                property.PropertyType = propertyUpdateDto.PropertyType.ToLower();
+                property.Rating = propertyUpdateDto.Rating;
+                property.Price = propertyUpdateDto.Price;
+                property.AvailableFrom = propertyUpdateDto.AvailableFrom;
+                property.AvailableTo = propertyUpdateDto.AvailableTo;
+                property.ImagePath = propertyUpdateDto.ImagePath;
+
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating property with id {PropertyId}", id);
+                return StatusCode(500, "An error occurred while updating the property");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProperty(int id)
+        {
+            try
+            {
+                var property = await _context.Properties.FindAsync(id);
+                if (property == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Properties.Remove(property);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting property with id {PropertyId}", id);
+                return StatusCode(500, "An error occurred while deleting the property");
+            }
+        }
+
+        // Additional endpoint for getting property statistics
+        [HttpGet("stats")]
+        public async Task<ActionResult<object>> GetPropertyStatistics()
+        {
+            try
+            {
+                var stats = new
+                {
+                    TotalProperties = await _context.Properties.CountAsync(),
+                    ApartmentCount = await _context.Properties.CountAsync(p => p.PropertyType == "apartment"),
+                    VillaCount = await _context.Properties.CountAsync(p => p.PropertyType == "villa"),
+                    RoomCount = await _context.Properties.CountAsync(p => p.PropertyType == "room"),
+                    AveragePrice = await _context.Properties.AverageAsync(p => p.Price),
+                    AverageRating = await _context.Properties.Where(p => p.Rating.HasValue).AverageAsync(p => p.Rating.Value),
+                    CitiesCount = await _context.Properties.Select(p => p.City).Distinct().CountAsync()
+                };
+
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving property statistics");
+                return StatusCode(500, "An error occurred while retrieving statistics");
+            }
+        }
+
+        private bool PropertyExists(int id)
+        {
+            return _context.Properties.Any(e => e.Id == id);
+        }
+    }
+
+    // DTOs for property operations
+    public class PropertyCreateDto
+    {
+        [Required]
+        [MaxLength(200)]
+        public string Title { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(150)]
+        public string Location { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(100)]
+        public string City { get; set; } = string.Empty;
+
+        public string? Description { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string PropertyType { get; set; } = string.Empty;
+
+        [Range(1.0, 5.0)]
+        public decimal? Rating { get; set; }
+
+        [Required]
+        [Range(0.01, double.MaxValue)]
+        public decimal Price { get; set; }
+
+        [Required]
+        public DateTime AvailableFrom { get; set; }
+
+        [Required]
+        public DateTime AvailableTo { get; set; }
+
+        [MaxLength(500)]
+        public string? ImagePath { get; set; }
+    }
+
+    public class PropertyUpdateDto : PropertyCreateDto
+    {
+    }
+}
